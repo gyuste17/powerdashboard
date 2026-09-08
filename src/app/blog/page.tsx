@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BookOpen, ArrowRight, Clock, Sparkles } from 'lucide-react';
+import { BookOpen, ArrowRight, Clock } from 'lucide-react';
+import { BLOG_POSTS } from '@/data/blogData';
 import { SITE_CONFIG } from '@/data/siteData';
 import { generateBreadcrumbJsonLd } from '@/lib/jsonLd';
 
@@ -11,33 +12,6 @@ export const metadata: Metadata = {
     canonical: `${SITE_CONFIG.url}/blog`,
   },
 };
-
-const ARTICLES = [
-  {
-    slug: 'power-bi-vs-looker-studio-que-herramienta-elegir',
-    title: 'Power BI vs Google Looker Studio: ¿Cuál elegir para tu empresa en 2026?',
-    excerpt: 'Comparativa exhaustiva de costes de licencias, capacidades de modelado de datos, curva de aprendizaje y casos de uso recomendados.',
-    date: '8 Septiembre 2026',
-    readTime: '6 min de lectura',
-    category: 'Comparativas BI',
-  },
-  {
-    slug: '5-senales-empresa-necesita-migrar-excel-power-bi',
-    title: '5 Señales críticas de que tu empresa debe dejar de usar Excel para sus reportes clave',
-    excerpt: 'Cómo identificar los cuellos de botella y riesgos invisibles que están costando miles de euros al mes a tu departamento financiero y comercial.',
-    date: '1 Septiembre 2026',
-    readTime: '5 min de lectura',
-    category: 'Estrategia de Datos',
-  },
-  {
-    slug: 'kpis-imprescindibles-cuadro-mando-financiero-cfo',
-    title: 'Los 7 KPIs que todo Director Financiero (CFO) debe tener en su cuadro de mando diario',
-    excerpt: 'Guía práctica para estructurar un dashboard de P&L, control presupuestario y flujo de caja con alertas tempranas de desviación.',
-    date: '25 Agosto 2026',
-    readTime: '7 min de lectura',
-    category: 'Finanzas & Control',
-  },
-];
 
 export default function BlogIndexPage() {
   const breadcrumbJsonLd = generateBreadcrumbJsonLd([
@@ -64,7 +38,7 @@ export default function BlogIndexPage() {
           </div>
 
           <div className="space-y-6">
-            {ARTICLES.map((art) => (
+            {BLOG_POSTS.map((art) => (
               <article
                 key={art.slug}
                 className="bg-slate-900 border border-slate-800 hover:border-amber-500/50 rounded-2xl p-6 sm:p-8 transition-all group"
