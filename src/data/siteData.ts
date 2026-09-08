@@ -192,6 +192,16 @@ export const DASHBOARD_EXAMPLES: DashboardExample[] = [
     kpis: ['Coste por Empleado', 'Ratio de Absentismo', 'Tasa de Rotación', 'eNPS'],
     highlight: 'Auditoría ágil de costes de personal',
   },
+  {
+    id: 'pbi-hospitality',
+    title: 'Dashboard de Ocupación, Yield & Pricing Dinámico',
+    category: 'Operaciones',
+    tool: 'Power BI',
+    description: 'Monitorización en tiempo real de ratios de ocupación, RevPAR, elasticidad de demanda y benchmarking competitivo.',
+    image: '/images/dashboards/Airbnb.png',
+    kpis: ['RevPAR', 'ADR (Tarifa Media)', 'Ocupación %', 'Margen Neto'],
+    highlight: '+14% de optimización en margen medio por reserva',
+  },
 ];
 
 export const PRICING_PLANS: PricingPlan[] = [
