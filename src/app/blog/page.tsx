@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { BookOpen, ArrowRight, Clock } from 'lucide-react';
 import { BLOG_POSTS } from '@/data/blogData';
@@ -22,7 +22,7 @@ export default function BlogIndexPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <div className="pt-32 pb-20 bg-slate-950 min-h-screen text-slate-100">
+      <div className="pt-32 pb-20 bg-transparent min-h-screen text-slate-100">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider">

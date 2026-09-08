@@ -32,10 +32,11 @@ export function ShowcaseSection() {
     : DASHBOARD_EXAMPLES.filter((d) => d.category === selected);
 
   return (
-    <section className="py-24 relative bg-[#0a0e17]" id="dashboards">
-      {/* Background texture */}
-      <div className="absolute inset-0 grid-bg-sm opacity-30" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
+    <section className="py-28 relative bg-transparent overflow-hidden" id="dashboards">
+      {/* Luminous ambient backdrops */}
+      <div className="absolute top-1/4 right-[-5%] w-[600px] h-[600px] bg-cyan-500/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-1/4 left-[-5%] w-[550px] h-[550px] bg-amber-500/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
 
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* ── Header ─────────────────────────────── */}

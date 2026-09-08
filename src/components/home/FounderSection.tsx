@@ -35,10 +35,11 @@ export function FounderSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section className="py-24 bg-[#080c14] relative overflow-hidden" id="sobre-mi">
+    <section className="py-28 bg-transparent relative overflow-hidden" id="sobre-mi">
       {/* Background aurora */}
-      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-amber-500/5 blur-[120px] rounded-full -translate-y-1/2 pointer-events-none" />
-      <div className="absolute top-1/2 left-0 w-[300px] h-[400px] bg-indigo-500/5 blur-[100px] rounded-full -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 right-[-5%] w-[600px] h-[600px] bg-amber-500/12 blur-[150px] rounded-full -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 left-[-5%] w-[450px] h-[500px] bg-indigo-600/15 blur-[140px] rounded-full -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/25 to-transparent" />
 
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">

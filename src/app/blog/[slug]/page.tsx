@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Clock, ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
@@ -52,7 +52,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
-      <div className="pt-32 pb-24 bg-slate-950 min-h-screen text-slate-100">
+      <div className="pt-32 pb-24 bg-transparent min-h-screen text-slate-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-xs text-slate-400 mb-8">
             <Link href="/" className="hover:text-amber-400">Inicio</Link>

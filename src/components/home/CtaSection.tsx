@@ -17,7 +17,7 @@ export function CtaSection() {
   const inView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section className="py-24 bg-[#080c14] relative overflow-hidden" ref={ref}>
+    <section className="py-28 bg-transparent relative overflow-hidden" ref={ref}>
       {/* Large ambient glow */}
       <motion.div
         className="absolute inset-0 pointer-events-none"

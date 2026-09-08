@@ -95,6 +95,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { BackgroundAtmosphere } from "@/components/ui/BackgroundAtmosphere";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -110,11 +112,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${outfit.variable} bg-[#080c14] text-slate-100 min-h-screen flex flex-col font-sans`}>
+      <body className={`${inter.variable} ${outfit.variable} bg-[#060913] text-slate-100 min-h-screen flex flex-col font-sans relative`}>
+        <BackgroundAtmosphere />
         <GoogleAnalyticsNoScript />
         <GoogleAnalytics />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 relative z-10">{children}</main>
         <Footer />
         <CookieBanner />
       </body>

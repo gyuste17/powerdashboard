@@ -38,12 +38,11 @@ export function ServiceMatrix() {
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section className="py-24 bg-[#080c14] relative" id="servicios">
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 grid-bg-sm opacity-50" />
-
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-amber-500/5 blur-[100px] rounded-full pointer-events-none" />
+    <section className="py-28 bg-transparent relative overflow-hidden" id="servicios">
+      {/* Dynamic ambient gradients */}
+      <div className="absolute top-1/3 left-[-10%] w-[500px] h-[500px] bg-indigo-500/10 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 right-[-10%] w-[550px] h-[550px] bg-amber-500/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#091122]/30 to-transparent pointer-events-none" />
 
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* ── Section header ─────────────────────── */}

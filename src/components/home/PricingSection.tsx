@@ -11,12 +11,10 @@ export function PricingSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section className="py-24 bg-[#0a0e17] relative" id="precios">
-      {/* Subtle diagonal separator */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-amber-500/6 blur-[100px] rounded-full pointer-events-none" />
+    <section className="py-28 bg-transparent relative overflow-hidden" id="precios">
+      {/* Golden ambient spotlight */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-r from-amber-500/12 via-yellow-500/8 to-amber-500/12 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
 
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}

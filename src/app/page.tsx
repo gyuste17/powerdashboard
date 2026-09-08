@@ -1,4 +1,4 @@
-﻿import { Hero } from "@/components/home/Hero";
+import { Hero } from "@/components/home/Hero";
 import { InteractiveDashboardDemo } from "@/components/dashboard-demo/InteractiveDashboardDemo";
 import { RoiCalculator } from "@/components/home/RoiCalculator";
 import { ServiceMatrix } from "@/components/home/ServiceMatrix";
@@ -23,7 +23,7 @@ export default function HomePage() {
       <Hero />
 
       {/* 2. Live Interactive Dashboard Showcase right under Hero */}
-      <section className="py-8 sm:py-12 bg-slate-950 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto -mt-6 sm:-mt-10 relative z-20">
+      <section className="py-8 sm:py-16 bg-transparent px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto -mt-6 sm:-mt-12 relative z-20">
         <InteractiveDashboardDemo />
       </section>
 

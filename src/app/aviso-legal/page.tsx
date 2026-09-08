@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SITE_CONFIG } from '@/data/siteData';
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function AvisoLegalPage() {
   return (
-    <div className="pt-32 pb-20 bg-slate-950 min-h-screen text-slate-300 text-sm leading-relaxed">
+    <div className="pt-32 pb-20 bg-transparent min-h-screen text-slate-300 text-sm leading-relaxed">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <h1 className="text-3xl font-bold text-white mb-6">Aviso Legal</h1>
 

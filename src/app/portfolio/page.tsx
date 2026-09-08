@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { ShowcaseSection } from '@/components/home/ShowcaseSection';
 import { SITE_CONFIG } from '@/data/siteData';
 import { generateBreadcrumbJsonLd } from '@/lib/jsonLd';
@@ -25,7 +25,7 @@ export default function PortfolioPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <div className="pt-28 bg-slate-950 min-h-screen">
+      <div className="pt-28 bg-transparent min-h-screen">
         <ShowcaseSection />
       </div>
     </>

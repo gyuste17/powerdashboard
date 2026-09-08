@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from 'react';
 import { 
@@ -29,7 +29,7 @@ export default function AuditoriaGratuitaPage() {
   };
 
   return (
-    <div className="pt-32 pb-20 bg-slate-950 min-h-screen text-slate-100">
+    <div className="pt-32 pb-20 bg-transparent min-h-screen text-slate-100">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-4 mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider">

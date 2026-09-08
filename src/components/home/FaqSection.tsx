@@ -15,9 +15,11 @@ export function FaqSection() {
   const toggle = (idx: number) => setOpenIndex(openIndex === idx ? null : idx);
 
   return (
-    <section className="py-24 bg-[#080c14] relative" id="faqs" ref={ref}>
-      <div className="absolute inset-0 grid-bg-sm opacity-20" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
+    <section className="py-28 bg-transparent relative overflow-hidden" id="faqs" ref={ref}>
+      {/* Ambient glows */}
+      <div className="absolute top-1/3 left-[-10%] w-[500px] h-[500px] bg-indigo-500/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 right-[-10%] w-[500px] h-[500px] bg-amber-500/10 blur-[150px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent" />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}

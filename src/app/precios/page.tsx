@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { PricingSection } from '@/components/home/PricingSection';
 import { RoiCalculator } from '@/components/home/RoiCalculator';
 import { FaqSection } from '@/components/home/FaqSection';
@@ -27,7 +27,7 @@ export default function PreciosPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <div className="pt-28 bg-slate-950 min-h-screen">
+      <div className="pt-28 bg-transparent min-h-screen">
         <PricingSection />
         <RoiCalculator />
         <FaqSection />

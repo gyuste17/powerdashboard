@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -41,7 +41,7 @@ export default function LookerStudioServicePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
-      <div className="pt-32 pb-20 bg-slate-950 min-h-screen text-slate-100">
+      <div className="pt-32 pb-20 bg-transparent min-h-screen text-slate-100">
         {/* Breadcrumb Header */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
           <div className="flex items-center gap-2 text-xs text-slate-400">
