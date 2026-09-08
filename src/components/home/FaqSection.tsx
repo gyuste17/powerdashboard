@@ -1,61 +1,118 @@
-﻿'use client';
+'use client';
 
-import { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { ChevronDown, HelpCircle, MessageSquare } from 'lucide-react';
+import Link from 'next/link';
 import { FAQS_DATA } from '@/data/siteData';
+import { SITE_CONFIG } from '@/data/siteData';
 
 export function FaqSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const toggleIndex = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
-  };
+  const toggle = (idx: number) => setOpenIndex(openIndex === idx ? null : idx);
 
   return (
-    <section className="py-20 bg-slate-950 relative" id="faqs">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-4">
+    <section className="py-24 bg-[#080c14] relative" id="faqs" ref={ref}>
+      <div className="absolute inset-0 grid-bg-sm opacity-20" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent" />
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-14"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-amber text-amber-400 text-xs font-bold uppercase tracking-widest mb-5">
             <HelpCircle className="w-3.5 h-3.5" />
             Preguntas Frecuentes
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Todo lo que necesitas saber antes de empezar
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+            Todo lo que necesitas saber{' '}
+            <span className="gradient-text">antes de empezar</span>
           </h2>
-          <p className="text-slate-400 text-base mt-3">
-            Resolvemos las dudas habituales sobre plazos, herramientas, seguridad y metodología.
+          <p className="text-slate-400 text-base mt-4">
+            Dudas habituales sobre plazos, herramientas, seguridad y metodología.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-4">
+        {/* Accordion */}
+        <div className="space-y-3">
           {FAQS_DATA.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
-              <div
+              <motion.div
                 key={index}
-                className="bg-slate-900/80 border border-slate-800 rounded-xl overflow-hidden transition-colors"
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.1 + index * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className={`glass rounded-2xl overflow-hidden border transition-all duration-300 ${
+                  isOpen ? 'border-amber-500/30' : 'border-white/[0.05] hover:border-white/[0.10]'
+                }`}
               >
                 <button
-                  onClick={() => toggleIndex(index)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 text-white font-semibold text-sm sm:text-base hover:text-amber-400 transition-colors"
+                  onClick={() => toggle(index)}
+                  className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 group"
                   aria-expanded={isOpen}
                 >
-                  <span>{faq.question}</span>
-                  <ChevronDown
-                    className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180 text-amber-400' : ''
-                    }`}
-                  />
+                  <span className={`font-semibold text-sm sm:text-base transition-colors duration-200 ${isOpen ? 'text-amber-300' : 'text-white group-hover:text-amber-300'}`}>
+                    {faq.question}
+                  </span>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className={`shrink-0 p-1 rounded-lg transition-colors ${isOpen ? 'bg-amber-500/15 text-amber-400' : 'text-slate-500 group-hover:text-amber-400'}`}
+                  >
+                    <ChevronDown className="w-4 h-4" />
+                  </motion.div>
                 </button>
-                {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 animate-fade-in">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
+
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 sm:px-6 pb-5 pt-1 border-t border-white/[0.05]">
+                        <p className="text-sm text-slate-300 leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             );
           })}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-slate-400 text-sm mb-4">
+            ¿No encuentras respuesta a tu duda?
+          </p>
+          <a
+            href={`https://wa.me/${SITE_CONFIG.founder.phoneClean}?text=Hola%20Guillermo,%20tengo%20una%20consulta%20sobre%20PowerDashboard.es`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-secondary inline-flex group"
+          >
+            <MessageSquare className="w-4 h-4 text-emerald-400" />
+            Escríbeme directamente
+          </a>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,130 +1,191 @@
-﻿'use client';
+'use client';
 
-import Image from 'next/image';
+import { useRef } from 'react';
 import Link from 'next/link';
-import { 
-  ShieldCheck, 
-  Linkedin, 
-  CheckCircle2, 
-  Award, 
-  Clock, 
-  UserCheck, 
+import { motion, useInView } from 'framer-motion';
+import {
+  ShieldCheck,
+  Linkedin,
+  CheckCircle2,
   ArrowRight,
-  Sparkles
+  Star,
+  Clock,
+  Award,
+  Users,
+  Briefcase,
 } from 'lucide-react';
 import { SITE_CONFIG } from '@/data/siteData';
 
+const CREDENTIALS = [
+  { icon: Award,    label: '+7 Años BI',          sub: 'Power BI, SQL, Python',  color: 'text-amber-400', bg: 'bg-amber-500/10' },
+  { icon: Users,    label: '100% Entregados',      sub: 'Proyectos a tiempo',     color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+  { icon: Clock,    label: 'Respuesta < 48h',      sub: 'Diagnóstico y propuesta',color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+  { icon: Briefcase,label: 'Trato 1 a 1',          sub: 'Sin intermediarios',     color: 'text-violet-400', bg: 'bg-violet-500/10' },
+];
+
+const CHECKLIST = [
+  'Modelos relacionales limpios y DAX optimizado',
+  'Acuerdo de Confidencialidad (NDA) firmado',
+  'Propiedad 100% del código y paneles',
+  'Formación y soporte directo post-entrega',
+];
+
 export function FounderSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+
   return (
-    <section className="py-20 bg-slate-950 relative overflow-hidden" id="sobre-mi">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 rounded-3xl p-8 sm:p-12 lg:p-16 relative">
-          {/* Subtle background glow */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 blur-[90px] rounded-full pointer-events-none" />
+    <section className="py-24 bg-[#080c14] relative overflow-hidden" id="sobre-mi">
+      {/* Background aurora */}
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-amber-500/5 blur-[120px] rounded-full -translate-y-1/2 pointer-events-none" />
+      <div className="absolute top-1/2 left-0 w-[300px] h-[400px] bg-indigo-500/5 blur-[100px] rounded-full -translate-y-1/2 pointer-events-none" />
 
-          <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            {/* Left Col: Info & Bio */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider">
-                <UserCheck className="w-3.5 h-3.5" />
-                Especialista & Fundador
-              </div>
+      <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* ── Left: Text content ─────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: -32 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-7"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-amber text-amber-400 text-xs font-bold uppercase tracking-widest">
+              <Star className="w-3.5 h-3.5 fill-amber-400" />
+              Especialista & Fundador
+            </div>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                Hola, soy <span className="text-amber-400">{SITE_CONFIG.founder.name}</span>. Te ayudo a transformar tus datos en decisiones de negocio rentables.
-              </h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+              Hola, soy{' '}
+              <span className="gradient-text">{SITE_CONFIG.founder.name}</span>
+              <br />
+              <span className="text-2xl sm:text-3xl font-bold text-slate-300">
+                Tu consultor de datos de confianza
+              </span>
+            </h2>
 
-              <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
-                <p>
-                  Llevo más de 7 años dedicado a la <strong>consultoría, modelado de datos y formación en Business Intelligence</strong> (Power BI, Looker Studio, Tableau y SQL).
-                </p>
-                <p>
-                  En 2022 creé <strong>PowerDashboard.es</strong> con una misión clara: acercar el Business Intelligence de primer nivel a PYMEs, directores y profesionales, eliminando el coste inflado y la lentitud de las grandes agencias generalistas.
-                </p>
-                <p className="text-slate-400 text-sm">
-                  Cuando trabajas conmigo, no tratas con comerciales ni con juniors a los que delegan tu cuenta. Tratas 1 a 1 con el especialista que entiende tu negocio y programa tus modelos.
-                </p>
-              </div>
+            <div className="space-y-4 text-slate-300 leading-relaxed">
+              <p>
+                Llevo más de{' '}
+                <strong className="text-white">7 años dedicado a la consultoría,
+                modelado de datos y formación en Business Intelligence</strong>{' '}
+                (Power BI, Looker Studio, Tableau y SQL).
+              </p>
+              <p>
+                Creé <strong className="text-amber-300">PowerDashboard.es</strong> con una
+                misión clara: acercar el Business Intelligence de primer nivel a PYMEs y
+                directivos, eliminando el coste inflado y la lentitud de las grandes agencias.
+              </p>
+              <p className="text-slate-400 text-sm">
+                Cuando trabajas conmigo, no tratas con comerciales ni con juniors a los que
+                delegan tu cuenta. Tratas 1 a 1 con el especialista que entiende tu negocio
+                y programa tus modelos.
+              </p>
+            </div>
 
-              {/* Trust checklist */}
-              <div className="grid sm:grid-cols-2 gap-3 pt-2">
-                {[
-                  'Modelos relacionales limpios y DAX optimizado',
-                  'Acuerdo de Confidencialidad (NDA) firmado',
-                  'Propiedad 100% tuya del código y paneles',
-                  'Formación y soporte directo post-entrega',
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Action buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-4">
-                <Link
-                  href="/contacto"
-                  className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-md transition-all flex items-center gap-2"
+            {/* Checklist */}
+            <div className="grid sm:grid-cols-2 gap-3">
+              {CHECKLIST.map((item, i) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.3 + i * 0.08, duration: 0.5 }}
+                  className="flex items-center gap-2.5 text-sm text-slate-200"
                 >
-                  <span>Reservar llamada de diagnóstico</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
+                  {item}
+                </motion.div>
+              ))}
+            </div>
 
-                <a
-                  href={SITE_CONFIG.founder.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-white font-medium text-sm border border-slate-700 transition-colors flex items-center gap-2"
-                >
-                  <Linkedin className="w-4 h-4 text-sky-400" />
-                  <span>Conectar en LinkedIn</span>
-                </a>
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="flex flex-wrap gap-4 pt-2"
+            >
+              <Link href="/contacto" className="btn-primary group">
+                Reservar llamada de diagnóstico
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <a
+                href={SITE_CONFIG.founder.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary group"
+              >
+                <Linkedin className="w-4 h-4 text-sky-400" />
+                LinkedIn
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* ── Right: Credential card ─────────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: 32 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="space-y-5"
+          >
+            {/* Profile card */}
+            <div className="glass rounded-2xl p-6 border border-white/[0.07] relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-amber-500/10 blur-[60px] rounded-full" />
+              <div className="flex items-center gap-4 relative">
+                {/* Avatar */}
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-black text-2xl flex items-center justify-center shadow-amber-glow-sm shrink-0">
+                  GY
+                </div>
+                <div>
+                  <h3 className="font-bold text-white text-lg">{SITE_CONFIG.founder.name}</h3>
+                  <p className="text-sm text-amber-400 font-medium">{SITE_CONFIG.founder.role}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{SITE_CONFIG.founder.location}</p>
+                </div>
+                {/* Active badge */}
+                <div className="ml-auto flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Disponible
+                </div>
               </div>
             </div>
 
-            {/* Right Col: Stats & Credentials Card */}
-            <div className="lg:col-span-5 space-y-4">
-              <div className="bg-slate-950/80 border border-slate-800/90 rounded-2xl p-6 sm:p-8 space-y-6">
-                <div className="flex items-center gap-4 border-b border-slate-800 pb-5">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-black text-2xl flex items-center justify-center shadow-lg shadow-amber-500/20">
-                    GY
+            {/* Credential stats grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {CREDENTIALS.map((cred, i) => (
+                <motion.div
+                  key={cred.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
+                  whileHover={{ y: -3, transition: { duration: 0.2 } }}
+                  className="glass rounded-2xl p-5 border border-white/[0.06] hover:border-white/[0.12] transition-all group cursor-default"
+                >
+                  <div className={`p-2.5 rounded-xl ${cred.bg} w-fit mb-3 group-hover:scale-110 transition-transform`}>
+                    <cred.icon className={`w-5 h-5 ${cred.color}`} />
                   </div>
-                  <div>
-                    <h3 className="font-bold text-white text-lg">{SITE_CONFIG.founder.name}</h3>
-                    <p className="text-xs text-amber-400 font-medium">{SITE_CONFIG.founder.role}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{SITE_CONFIG.founder.location}</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <div className="text-2xl font-black text-white font-mono">+7</div>
-                    <div className="text-xs text-slate-400 mt-0.5">Años de experiencia en datos</div>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <div className="text-2xl font-black text-amber-400 font-mono">100%</div>
-                    <div className="text-xs text-slate-400 mt-0.5">Proyectos entregados a tiempo</div>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <div className="text-2xl font-black text-cyan-400 font-mono">0 min</div>
-                    <div className="text-xs text-slate-400 mt-0.5">Tiempo de reporte manual</div>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/80">
-                    <div className="text-2xl font-black text-emerald-400 font-mono">&lt; 48h</div>
-                    <div className="text-xs text-slate-400 mt-0.5">Diagnóstico y propuesta</div>
-                  </div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200 leading-relaxed flex items-start gap-2.5">
-                  <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Garantía de Satisfacción:</strong> Si en la primera fase de diseño el cuadro de mando no cumple exactamente con tus requisitos acordados, lo ajustamos sin coste adicional.
-                  </span>
-                </div>
-              </div>
+                  <div className={`text-lg font-black ${cred.color}`}>{cred.label}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">{cred.sub}</div>
+                </motion.div>
+              ))}
             </div>
-          </div>
+
+            {/* Guarantee */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              className="glass-amber rounded-2xl p-5 flex items-start gap-3"
+            >
+              <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <div className="text-xs font-bold text-amber-300 mb-1">Garantía de Satisfacción</div>
+                <p className="text-xs text-amber-200/70 leading-relaxed">
+                  Si en la primera fase de diseño el cuadro de mando no cumple con tus
+                  requisitos acordados, lo ajustamos sin coste adicional.
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

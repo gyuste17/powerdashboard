@@ -1,133 +1,188 @@
-﻿'use client';
+'use client';
 
+import { useRef } from 'react';
 import Link from 'next/link';
-import { 
-  BarChart3, 
-  PieChart, 
-  RefreshCw, 
-  ArrowRight, 
-  Check, 
-  AlertCircle,
+import { motion, useInView } from 'framer-motion';
+import {
+  BarChart3,
+  PieChart,
+  RefreshCw,
+  ArrowRight,
+  CheckCircle2,
+  AlertTriangle,
   Sparkles,
-  Database
+  Zap,
 } from 'lucide-react';
 import { SERVICES_DATA } from '@/data/siteData';
 
+const iconMap: Record<string, typeof BarChart3> = {
+  'power-bi':        BarChart3,
+  'looker-studio':   PieChart,
+  'migracion-excel': RefreshCw,
+};
+
+const cardGradients = [
+  'from-amber-500/15 via-transparent to-transparent',
+  'from-indigo-500/10 via-transparent to-transparent',
+  'from-cyan-500/10 via-transparent to-transparent',
+];
+
+const accentColors = [
+  { bg: 'bg-amber-500/15', border: 'border-amber-500/30', text: 'text-amber-400', iconHover: 'group-hover:bg-amber-500 group-hover:text-slate-950', badge: 'bg-amber-500/10 text-amber-300 border-amber-500/20' },
+  { bg: 'bg-indigo-500/10', border: 'border-indigo-500/25', text: 'text-indigo-400', iconHover: 'group-hover:bg-indigo-500 group-hover:text-white', badge: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20' },
+  { bg: 'bg-cyan-500/10', border: 'border-cyan-500/25', text: 'text-cyan-400', iconHover: 'group-hover:bg-cyan-500 group-hover:text-slate-950', badge: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20' },
+];
+
 export function ServiceMatrix() {
-  const iconMap: Record<string, typeof BarChart3> = {
-    'power-bi': BarChart3,
-    'looker-studio': PieChart,
-    'migracion-excel': RefreshCw,
-  };
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section className="py-20 bg-slate-950 relative" id="servicios">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold uppercase tracking-wider mb-4">
-            <Database className="w-3.5 h-3.5" />
+    <section className="py-24 bg-[#080c14] relative" id="servicios">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 grid-bg-sm opacity-50" />
+
+      {/* Ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-amber-500/5 blur-[100px] rounded-full pointer-events-none" />
+
+      <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* ── Section header ─────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-amber text-amber-400 text-xs font-bold uppercase tracking-widest mb-5">
+            <Zap className="w-3.5 h-3.5" />
             Servicios Especializados
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Soluciones de Business Intelligence orientadas a Resultados
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+            Soluciones de{' '}
+            <span className="gradient-text">Business Intelligence</span>
+            {' '}orientadas a resultados
           </h2>
-          <p className="text-slate-400 text-base mt-4 leading-relaxed">
-            No te vendemos gráficos bonitos sin utilidad. Diseñamos sistemas analíticos robustos que responden directamente a las preguntas clave de tu negocio.
+          <p className="text-slate-400 text-base mt-5 leading-relaxed">
+            No te vendemos gráficos bonitos sin utilidad. Diseñamos sistemas analíticos robustos
+            que responden directamente a las preguntas clave de tu negocio.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 items-stretch">
-          {SERVICES_DATA.map((service) => {
+        {/* ── Service Cards ──────────────────────── */}
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {SERVICES_DATA.map((service, index) => {
             const Icon = iconMap[service.id] || BarChart3;
+            const accent = accentColors[index];
+            const gradient = cardGradients[index];
+
             return (
-              <div
+              <motion.div
                 key={service.id}
-                className="bg-slate-900/70 border border-slate-800 hover:border-amber-500/50 rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/10 group relative"
+                initial={{ opacity: 0, y: 32 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.15 + index * 0.12, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className={`relative bg-gradient-to-br ${gradient} bg-[#0f172a]/80 border border-white/[0.06] hover:border-white/[0.12] rounded-2xl p-7 flex flex-col justify-between transition-all duration-400 hover:shadow-card-hover group card-hover overflow-hidden`}
               >
+                {/* Card inner glow on hover */}
+                <div className={`absolute top-0 right-0 w-48 h-48 ${accent.bg} blur-[60px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+
                 <div>
-                  {/* Badge & Icon */}
+                  {/* Icon + Badge */}
                   <div className="flex items-center justify-between mb-6">
-                    <div className="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all">
+                    <motion.div
+                      whileHover={{ rotate: [0, -5, 5, 0], transition: { duration: 0.4 } }}
+                      className={`p-3 rounded-xl ${accent.bg} ${accent.text} border ${accent.border} ${accent.iconHover} transition-all duration-300`}
+                    >
                       <Icon className="w-6 h-6" />
-                    </div>
-                    <span className="text-xs font-semibold text-amber-400/90 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+                    </motion.div>
+                    <span className={`text-xs font-bold px-3 py-1 rounded-full border ${accent.badge}`}>
                       {service.badge}
                     </span>
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="text-xl font-bold text-white group-hover:text-amber-400 transition-colors">
+                  {/* Title */}
+                  <h3 className={`text-xl font-bold text-white group-hover:${accent.text} transition-colors duration-200`}>
                     {service.title}
                   </h3>
-                  <p className="text-sm text-slate-300 mt-2.5 leading-relaxed">
+                  <p className="text-sm text-slate-400 mt-2.5 leading-relaxed">
                     {service.shortDesc}
                   </p>
 
-                  {/* Problem vs Solution */}
-                  <div className="mt-6 pt-5 border-t border-slate-800/80 space-y-4">
-                    <div className="space-y-2">
-                      <div className="text-xs font-semibold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <AlertCircle className="w-3.5 h-3.5" />
-                        ¿Qué problema soluciona?
-                      </div>
-                      <p className="text-xs text-slate-400 italic">
-                        &quot;{service.painPoints[0]}&quot;
-                      </p>
-                    </div>
+                  {/* Divider */}
+                  <div className="my-6 h-px bg-white/[0.05]" />
 
-                    <div className="space-y-2">
-                      <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <Check className="w-3.5 h-3.5" />
-                        Entregables clave:
-                      </div>
-                      <ul className="space-y-1.5">
-                        {service.deliverables.slice(0, 3).map((item, idx) => (
-                          <li key={idx} className="text-xs text-slate-300 flex items-start gap-2">
-                            <span className="text-amber-400 font-bold">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  {/* Pain point */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-rose-400/90 uppercase tracking-wider">
+                      <AlertTriangle className="w-3 h-3" />
+                      Problema que soluciona
                     </div>
+                    <p className="text-xs text-slate-500 italic leading-relaxed">
+                      &ldquo;{service.painPoints[0]}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Deliverables */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-400/90 uppercase tracking-wider">
+                      <CheckCircle2 className="w-3 h-3" />
+                      Entregables clave
+                    </div>
+                    <ul className="space-y-1.5">
+                      {service.deliverables.slice(0, 3).map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                          <span className={`${accent.text} font-bold mt-px shrink-0`}>›</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
-                {/* Card footer CTA */}
-                <div className="pt-6 border-t border-slate-800/80 mt-6">
+                {/* CTA */}
+                <div className="mt-7 pt-6 border-t border-white/[0.05]">
                   <Link
                     href={`/servicios/${service.slug}`}
-                    className="w-full py-2.5 px-4 rounded-xl bg-slate-800/80 hover:bg-amber-500 text-slate-200 hover:text-slate-950 font-semibold text-sm transition-all flex items-center justify-center gap-2 group-hover:bg-amber-500 group-hover:text-slate-950"
+                    className={`w-full py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2 group/cta
+                      bg-white/[0.04] hover:bg-amber-500 text-slate-300 hover:text-slate-950 border border-white/[0.06] hover:border-amber-500`}
                   >
-                    <span>Ver Detalles y Metodología</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    <span>Ver metodología y casos</span>
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* In-Company Training Banner */}
-        <div className="mt-12 bg-gradient-to-r from-slate-900 via-slate-900/90 to-amber-950/40 border border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center md:text-left">
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 uppercase tracking-wider">
-              <Sparkles className="w-4 h-4 text-amber-400" />
+        {/* ── Training Banner ────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10 relative overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-r from-amber-500/10 via-[#0f172a] to-amber-500/5 p-8 flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div className="absolute top-0 left-0 w-48 h-full bg-amber-500/5 blur-[60px]" />
+          <div className="space-y-2 text-center md:text-left relative">
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 uppercase tracking-widest">
+              <Sparkles className="w-4 h-4" />
               Formación Práctica a Equipos
             </div>
             <h4 className="text-xl font-bold text-white">
               ¿Quieres capacitar a tu equipo en Power BI, DAX o Looker Studio?
             </h4>
-            <p className="text-sm text-slate-300 max-w-2xl">
-              Cursos 100% prácticos y adaptados a tus propios datos reales, para que tu equipo aprenda a crear y mantener sus propios cuadros de mando de forma autónoma.
+            <p className="text-sm text-slate-400 max-w-2xl">
+              Cursos 100% prácticos adaptados a tus datos reales, para que tu equipo cree y mantenga sus propios dashboards de forma autónoma.
             </p>
           </div>
           <Link
             href="/contacto?asunto=formacion"
-            className="shrink-0 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition-colors"
+            className="btn-secondary shrink-0 group"
           >
-            Consultar Formación In-Company
+            <span>Consultar Formación</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
