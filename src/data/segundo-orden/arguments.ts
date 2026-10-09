@@ -217,6 +217,7 @@ export const ARGUMENTS: ArgumentItem[] = [
     title: 'Subir el Salario Mínimo por ley siempre beneficia al trabajador',
     badge: 'Productividad Marginal',
     impactVerdict: 'Si la subida supera la productividad, destruye horas trabajadas y frena la inserción.',
+    image: '/images/segundo-orden/smi.jpg',
     surfaceClaim: {
       title: 'El dogma simplista (Lo que se ve)',
       headline: '«Un decreto puede decretar la prosperidad: subamos el SMI a 1.500 € y los pobres tendrán más dinero para vivir.»',
@@ -283,6 +284,7 @@ export const ARGUMENTS: ArgumentItem[] = [
     title: 'Gravar a las grandes fortunas genera recaudación para repartir',
     badge: 'Movilidad de Capitales',
     impactVerdict: 'Provoca fuga de patrimonios, reduce la inversión agregada y acaba recaudando menos.',
+    image: '/images/segundo-orden/taxes.jpg',
     surfaceClaim: {
       title: 'El dogma simplista (Lo que se ve)',
       headline: '«Los ricos acumulan demasiado dinero. Si les ponemos un impuesto a sus patrimonios, financiaremos los servicios de todos.»',

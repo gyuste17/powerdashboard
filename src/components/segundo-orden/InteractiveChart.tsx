@@ -21,21 +21,25 @@ interface ChartProps {
   chartType: 'bar' | 'line' | 'area';
   title?: string;
   subtitle?: string;
+  theme?: 'light' | 'dark';
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip = ({ active, payload, label, theme }: any) => {
   if (active && payload && payload.length) {
+    const isLight = theme === 'light';
     return (
-      <div className="bg-[#12131a] border border-white/10 rounded-lg p-3 shadow-xl backdrop-blur-md">
-        <p className="text-xs font-semibold text-zinc-400 mb-1">{label}</p>
+      <div className={`p-3 rounded-xl border shadow-xl backdrop-blur-md ${
+        isLight ? 'bg-white/95 border-slate-200 text-slate-900' : 'bg-[#121722]/95 border-slate-700 text-white'
+      }`}>
+        <p className={`text-xs font-semibold mb-1 ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>{label}</p>
         {payload.map((entry: any, index: number) => (
           <div key={`tooltip-${index}`} className="flex items-center gap-2 text-xs">
             <span
               className="w-2 h-2 rounded-full"
               style={{ backgroundColor: entry.color }}
             />
-            <span className="text-zinc-300 font-medium">{entry.name}:</span>
-            <span className="text-white font-bold font-mono">
+            <span className={`font-medium ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>{entry.name}:</span>
+            <span className={`font-bold font-mono ${isLight ? 'text-slate-900' : 'text-white'}`}>
               {entry.value}
             </span>
           </div>
@@ -51,14 +55,23 @@ export const InteractiveChart: React.FC<ChartProps> = ({
   dataKeys,
   chartType,
   title,
-  subtitle
+  subtitle,
+  theme = 'dark'
 }) => {
+  const isLight = theme === 'light';
+  const gridStroke = isLight ? '#e2e8f0' : '#334155';
+  const axisStroke = isLight ? '#64748b' : '#94a3b8';
+
   return (
-    <div className="w-full bg-[#0d0e14]/80 border border-white/[0.06] rounded-xl p-4 md:p-5">
+    <div className={`w-full min-w-0 rounded-2xl p-4 md:p-5 border transition-all ${
+      isLight 
+        ? 'bg-slate-50/90 border-slate-200 shadow-sm' 
+        : 'bg-[#101520]/80 border-slate-800/80 shadow-md'
+    }`}>
       {title && (
         <div className="mb-4">
-          <h4 className="text-sm font-semibold text-zinc-200 tracking-tight">{title}</h4>
-          {subtitle && <p className="text-xs text-zinc-500 mt-0.5">{subtitle}</p>}
+          <h4 className={`text-sm font-bold tracking-tight ${isLight ? 'text-slate-900' : 'text-slate-100'}`}>{title}</h4>
+          {subtitle && <p className={`text-xs mt-0.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{subtitle}</p>}
         </div>
       )}
 
@@ -74,21 +87,21 @@ export const InteractiveChart: React.FC<ChartProps> = ({
                   </linearGradient>
                 ))}
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff0a" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
               <XAxis
                 dataKey="name"
-                stroke="#71717a"
+                stroke={axisStroke}
                 fontSize={11}
                 tickLine={false}
-                axisLine={{ stroke: '#ffffff10' }}
+                axisLine={{ stroke: gridStroke }}
               />
               <YAxis
-                stroke="#71717a"
+                stroke={axisStroke}
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
               />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip theme={theme} />} />
               {dataKeys.map((k) => (
                 <Area
                   key={k.key}
@@ -104,21 +117,21 @@ export const InteractiveChart: React.FC<ChartProps> = ({
             </AreaChart>
           ) : chartType === 'line' ? (
             <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff0a" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
               <XAxis
                 dataKey="name"
-                stroke="#71717a"
+                stroke={axisStroke}
                 fontSize={11}
                 tickLine={false}
-                axisLine={{ stroke: '#ffffff10' }}
+                axisLine={{ stroke: gridStroke }}
               />
               <YAxis
-                stroke="#71717a"
+                stroke={axisStroke}
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
               />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip theme={theme} />} />
               {dataKeys.map((k) => (
                 <Line
                   key={k.key}
@@ -134,21 +147,21 @@ export const InteractiveChart: React.FC<ChartProps> = ({
             </LineChart>
           ) : (
             <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff0a" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
               <XAxis
                 dataKey="name"
-                stroke="#71717a"
+                stroke={axisStroke}
                 fontSize={11}
                 tickLine={false}
-                axisLine={{ stroke: '#ffffff10' }}
+                axisLine={{ stroke: gridStroke }}
               />
               <YAxis
-                stroke="#71717a"
+                stroke={axisStroke}
                 fontSize={11}
                 tickLine={false}
                 axisLine={false}
               />
-              <Tooltip content={<CustomTooltip />} />
+              <Tooltip content={<CustomTooltip theme={theme} />} />
               {dataKeys.map((k) => (
                 <Bar
                   key={k.key}
@@ -163,11 +176,13 @@ export const InteractiveChart: React.FC<ChartProps> = ({
         </ResponsiveContainer>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-4 mt-3 pt-2 border-t border-white/[0.04]">
+      <div className={`flex flex-wrap items-center justify-center gap-4 mt-3 pt-2 border-t ${
+        isLight ? 'border-slate-200' : 'border-slate-800'
+      }`}>
         {dataKeys.map((k) => (
-          <div key={k.key} className="flex items-center gap-1.5 text-xs text-zinc-400">
+          <div key={k.key} className="flex items-center gap-1.5 text-xs">
             <span className="w-2.5 h-2.5 rounded-sm" style={{ backgroundColor: k.color }} />
-            <span>{k.name}</span>
+            <span className={isLight ? 'text-slate-600 font-medium' : 'text-slate-400 font-medium'}>{k.name}</span>
           </div>
         ))}
       </div>

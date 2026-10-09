@@ -2,9 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ShieldCheck, Settings, Check, X } from 'lucide-react';
 
 export function CookieBanner() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/segundo-orden') || pathname?.startsWith('/politica')) {
+    return null;
+  }
+
   const [isOpen, setIsOpen] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
   const [analyticsAccepted, setAnalyticsAccepted] = useState(true);
