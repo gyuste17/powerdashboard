@@ -17,6 +17,7 @@ export const ARGUMENTS: ArgumentItem[] = [
     title: 'Topar el precio del alquiler soluciona la crisis habitacional',
     badge: 'Oferta y Demanda',
     impactVerdict: 'Destruye la oferta tradicional y expulsa a las familias de menores ingresos.',
+    image: '/images/segundo-orden/housing.jpg',
     surfaceClaim: {
       title: 'El dogma simplista (Lo que se ve)',
       headline: '«Si los pisos están caros, pongamos un tope legal al precio para que la gente humilde pueda pagarlos.»',
@@ -83,6 +84,7 @@ export const ARGUMENTS: ArgumentItem[] = [
     title: 'Encarecer y dificultar el despido protege al trabajador',
     badge: 'Incentivos Laborales',
     impactVerdict: 'Genera un muro insalvable de entrada para jóvenes y cronifica el paro estructural.',
+    image: '/images/segundo-orden/labor.jpg',
     surfaceClaim: {
       title: 'El dogma simplista (Lo que se ve)',
       headline: '«Si despedir cuesta 45 días por año y requiere autorización, las empresas no despedirán y el empleo será eterno y seguro.»',
@@ -148,6 +150,7 @@ export const ARGUMENTS: ArgumentItem[] = [
     title: 'La sanidad privada busca ahorrar y por tanto cura menos y peor',
     badge: 'Competencia e Incentivos',
     impactVerdict: 'La competencia por reputación obliga a la privada a buscar excelencia, mientras desahoga al sistema público.',
+    image: '/images/segundo-orden/health.jpg',
     surfaceClaim: {
       title: 'El dogma simplista (Lo que se ve)',
       headline: '«Como la empresa sanitaria privada quiere ganar dinero, regateará en pruebas, tratamientos y médicos para recortar gastos a costa del paciente.»',
@@ -344,6 +347,7 @@ export const ARGUMENTS: ArgumentItem[] = [
     title: 'La inflación en los alimentos se debe a la avaricia de los supermercados',
     badge: 'Cadena de Valor',
     impactVerdict: 'Los márgenes de los supermercados rondan el 2-3%; culparlos oculta la inflación monetaria.',
+    image: '/images/segundo-orden/market.jpg',
     surfaceClaim: {
       title: 'El dogma simplista (Lo que se ve)',
       headline: '«El aceite y los huevos han subido porque los grandes supermercados se están forrando a costa del pueblo.»',

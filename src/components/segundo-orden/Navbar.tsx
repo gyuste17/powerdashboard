@@ -17,13 +17,13 @@ export const Navbar = ({
   copied,
 }: NavbarProps) => {
   return (
-    <nav className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#090a0f]/90 border-b border-white/[0.08] transition-all">
+    <nav className="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#0b0e14]/90 border-b border-white/[0.08] transition-all">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         {/* Brand Logo & Back to Main */}
         <div className="flex items-center gap-4">
           <Link 
             href="/" 
-            className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white px-2.5 py-1 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] transition-colors"
+            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] transition-colors"
             title="Volver a la portada de PowerDashboard"
           >
             <ArrowLeft className="w-3.5 h-3.5" />

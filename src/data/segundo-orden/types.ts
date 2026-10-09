@@ -34,6 +34,7 @@ export interface ArgumentItem {
   title: string;
   badge: string;
   impactVerdict: string;
+  image?: string;
   
   // Nivel 1: Lo que se ve
   surfaceClaim: {
