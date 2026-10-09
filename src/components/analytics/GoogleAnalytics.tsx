@@ -1,46 +1,70 @@
-﻿'use client';
+'use client';
 
-import Script from 'next/script';
+import { useEffect } from 'react';
 import { SITE_CONFIG } from '@/data/siteData';
 
-export function GoogleAnalytics() {
-  return (
-    <>
-      {/* Google Consent Mode v2 Default Settings */}
-      <Script
-        id="google-consent-default"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('consent', 'default', {
-              'analytics_storage': 'denied',
-              'ad_storage': 'denied',
-              'ad_user_data': 'denied',
-              'ad_personalization': 'denied',
-              'wait_for_update': 500
-            });
-          `,
-        }}
-      />
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag?: (...args: any[]) => void;
+  }
+}
 
-      {/* Google Tag Manager */}
-      <Script
-        id="gtm-script"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${SITE_CONFIG.gtmId}');
-          `,
-        }}
-      />
-    </>
-  );
+export function GoogleAnalytics() {
+  useEffect(() => {
+    // 1. Initialize consent mode default immediately without blocking
+    window.dataLayer = window.dataLayer || [];
+    function gtag(...args: any[]) {
+      window.dataLayer.push(args);
+    }
+    window.gtag = gtag;
+
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500,
+    });
+
+    // 2. Defer heavy GTM script until first user interaction or idle timer
+    let isLoaded = false;
+    const loadGtm = () => {
+      if (isLoaded) return;
+      isLoaded = true;
+
+      window.dataLayer.push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js',
+      });
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtm.js?id=${SITE_CONFIG.gtmId}`;
+      document.head.appendChild(script);
+
+      cleanUp();
+    };
+
+    const events = ['scroll', 'touchstart', 'click', 'mousemove', 'keydown'];
+    const cleanUp = () => {
+      events.forEach((evt) => window.removeEventListener(evt, loadGtm));
+    };
+
+    events.forEach((evt) => {
+      window.addEventListener(evt, loadGtm, { once: true, passive: true });
+    });
+
+    // 3. Fallback timer (3.5s) if user doesn't interact immediately
+    const timer = setTimeout(loadGtm, 3500);
+
+    return () => {
+      clearTimeout(timer);
+      cleanUp();
+    };
+  }, []);
+
+  return null;
 }
 
 export function GoogleAnalyticsNoScript() {

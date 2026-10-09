@@ -1,57 +1,25 @@
-'use client';
-
-import { motion } from 'framer-motion';
-
 export function BackgroundAtmosphere() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-      {/* ── Global Animated Gradient Mesh Orbs ─────────────────── */}
-      <motion.div
+      {/* ── Global Animated Gradient Mesh Orbs (Hardware-accelerated CSS) ── */}
+      <div
         aria-hidden="true"
-        animate={{
-          x: [0, 40, -30, 0],
-          y: [0, -50, 30, 0],
-          scale: [1, 1.15, 0.95, 1],
-          opacity: [0.35, 0.5, 0.35],
-        }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -top-32 left-1/4 w-[650px] h-[650px] bg-gradient-to-br from-amber-500/20 via-yellow-500/10 to-transparent blur-[140px] rounded-full"
+        className="animate-orb-1 absolute -top-32 left-1/4 w-[650px] h-[650px] bg-gradient-to-br from-amber-500/20 via-yellow-500/10 to-transparent blur-[120px] rounded-full"
       />
 
-      <motion.div
+      <div
         aria-hidden="true"
-        animate={{
-          x: [0, -50, 40, 0],
-          y: [0, 40, -40, 0],
-          scale: [1, 1.2, 0.9, 1],
-          opacity: [0.25, 0.45, 0.25],
-        }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        className="absolute top-[25%] -right-40 w-[700px] h-[700px] bg-gradient-to-bl from-indigo-600/20 via-violet-500/15 to-transparent blur-[160px] rounded-full"
+        className="animate-orb-2 absolute top-[25%] -right-40 w-[700px] h-[700px] bg-gradient-to-bl from-indigo-600/20 via-violet-500/15 to-transparent blur-[140px] rounded-full"
       />
 
-      <motion.div
+      <div
         aria-hidden="true"
-        animate={{
-          x: [0, 60, -50, 0],
-          y: [0, -40, 50, 0],
-          scale: [0.95, 1.18, 1, 0.95],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
-        className="absolute top-[55%] -left-48 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-500/18 via-sky-500/10 to-transparent blur-[150px] rounded-full"
+        className="animate-orb-3 absolute top-[55%] -left-48 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-500/18 via-sky-500/10 to-transparent blur-[130px] rounded-full"
       />
 
-      <motion.div
+      <div
         aria-hidden="true"
-        animate={{
-          x: [0, -40, 30, 0],
-          y: [0, 30, -30, 0],
-          scale: [1, 1.1, 0.95, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut', delay: 7 }}
-        className="absolute bottom-10 right-1/4 w-[750px] h-[750px] bg-gradient-to-tl from-amber-500/22 via-orange-500/12 to-transparent blur-[160px] rounded-full"
+        className="animate-orb-4 absolute bottom-10 right-1/4 w-[750px] h-[750px] bg-gradient-to-tl from-amber-500/22 via-orange-500/12 to-transparent blur-[140px] rounded-full"
       />
 
       {/* ── Subtle Geometric Grid with Radial Fade Mask ──────────── */}

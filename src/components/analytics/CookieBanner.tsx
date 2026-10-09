@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ export function CookieBanner() {
   useEffect(() => {
     const consent = localStorage.getItem('powerdashboard_cookie_consent');
     if (!consent) {
-      const timer = setTimeout(() => setIsOpen(true), 1000);
+      const timer = setTimeout(() => setIsOpen(true), 4000);
       return () => clearTimeout(timer);
     } else {
       try {

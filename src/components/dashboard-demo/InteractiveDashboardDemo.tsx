@@ -430,8 +430,8 @@ export function InteractiveDashboardDemo() {
                     alt={`${current.name} Dashboard Corporativo Real`}
                     fill
                     className="object-cover object-top transition-transform duration-700 group-hover/canvas:scale-[1.01]"
-                    priority
                     sizes="(max-width: 1280px) 100vw, 1200px"
+                    loading="lazy"
                   />
                   {/* Subtle vignette gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1d] via-transparent to-black/20 pointer-events-none" />
@@ -589,7 +589,8 @@ export function InteractiveDashboardDemo() {
                 alt={`${current.name} Detalle en Alta Resolución`}
                 fill
                 className="object-contain p-2"
-                priority
+                sizes="95vw"
+                loading="lazy"
               />
             </motion.div>
           </div>

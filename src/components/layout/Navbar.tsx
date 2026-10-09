@@ -63,6 +63,10 @@ export function Navbar() {
   const isActive = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href);
 
+  if (pathname?.startsWith('/segundo-orden') || pathname?.startsWith('/politica')) {
+    return null;
+  }
+
   return (
     <>
       <motion.header
@@ -84,7 +88,7 @@ export function Navbar() {
                 className="relative h-9 w-40 sm:h-10 sm:w-48"
               >
                 <Image
-                  src="/logos/PowerDashboardLogoMedio.png"
+                  src="/logos/PowerDashboardLogoMedio.webp"
                   alt="PowerDashboard.es — Consultoría Power BI y Looker Studio"
                   fill
                   className="object-contain"

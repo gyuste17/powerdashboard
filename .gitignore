@@ -42,3 +42,6 @@ next-env.d.ts
 /6. Power Dashboard/
 /SEO - Freelancers/
 /PowerDashboardLogoCompleto.png
+
+.vercel
+.env*

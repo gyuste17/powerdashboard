@@ -1,13 +1,41 @@
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/home/Hero";
-import { InteractiveDashboardDemo } from "@/components/dashboard-demo/InteractiveDashboardDemo";
-import { RoiCalculator } from "@/components/home/RoiCalculator";
 import { ServiceMatrix } from "@/components/home/ServiceMatrix";
-import { ShowcaseSection } from "@/components/home/ShowcaseSection";
-import { FounderSection } from "@/components/home/FounderSection";
-import { PricingSection } from "@/components/home/PricingSection";
-import { FaqSection } from "@/components/home/FaqSection";
-import { CtaSection } from "@/components/home/CtaSection";
 import { generateFaqJsonLd } from "@/lib/jsonLd";
+
+const InteractiveDashboardDemo = dynamic(
+  () => import("@/components/dashboard-demo/InteractiveDashboardDemo").then((mod) => mod.InteractiveDashboardDemo),
+  {
+    loading: () => <div className="w-full h-[500px] rounded-2xl bg-slate-900/40 animate-pulse border border-white/5" />,
+  }
+);
+
+const RoiCalculator = dynamic(
+  () => import("@/components/home/RoiCalculator").then((mod) => mod.RoiCalculator),
+  {
+    loading: () => <div className="w-full h-[400px] rounded-2xl bg-slate-900/40 animate-pulse" />,
+  }
+);
+
+const ShowcaseSection = dynamic(
+  () => import("@/components/home/ShowcaseSection").then((mod) => mod.ShowcaseSection)
+);
+
+const FounderSection = dynamic(
+  () => import("@/components/home/FounderSection").then((mod) => mod.FounderSection)
+);
+
+const PricingSection = dynamic(
+  () => import("@/components/home/PricingSection").then((mod) => mod.PricingSection)
+);
+
+const FaqSection = dynamic(
+  () => import("@/components/home/FaqSection").then((mod) => mod.FaqSection)
+);
+
+const CtaSection = dynamic(
+  () => import("@/components/home/CtaSection").then((mod) => mod.CtaSection)
+);
 
 export default function HomePage() {
   const faqJsonLd = generateFaqJsonLd();
