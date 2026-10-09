@@ -11,6 +11,7 @@ export interface DataPoint {
   label: string;
   value: string;
   detail?: string;
+  comparison?: string;
   trend?: 'up' | 'down' | 'neutral';
   color?: string;
 }

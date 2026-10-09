@@ -218,11 +218,12 @@ export function SegundoOrdenClient() {
           </div>
         ) : viewMode === 'detailed' ? (
           <div className="max-w-6xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 items-start">
-            {filteredArguments.map((arg) => (
+            {filteredArguments.map((arg, index) => (
               <ArgumentCard
                 key={arg.id}
                 argument={arg}
                 theme={theme}
+                index={index}
                 onOpenSocialModal={(item) => setSocialModalArgument(item)}
               />
             ))}

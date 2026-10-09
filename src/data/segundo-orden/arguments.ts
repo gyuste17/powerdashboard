@@ -48,9 +48,9 @@ export const ARGUMENTS: ArgumentItem[] = [
       headline: 'Evidencia en Cataluña (Ley 12/2023 y zonas tensionadas)',
       summary: 'El Banco de España y los portales inmobiliarios constatan el colapso de la oferta de alquiler habitual y la disparada del alquiler por habitaciones.',
       metrics: [
-        { label: 'Oferta alquiler habitual en Barcelona', value: '-30.6%', trend: 'down', detail: 'Desde la declaración de zona tensionada', color: 'rose' },
-        { label: 'Oferta alquiler de temporada / habitaciones', value: '+56.4%', trend: 'up', detail: 'Fuga hacia contratos excluidos de la ley', color: 'amber' },
-        { label: 'Número de candidatos por piso anunciado', value: '115 pers.', trend: 'up', detail: 'Hipercompetencia por cada anuncio en 24h', color: 'rose' }
+        { label: 'Oferta alquiler habitual en Barcelona', value: '-30.6%', trend: 'down', detail: 'Desde la declaración de zona tensionada', comparison: 'vs. periodo previo al tope de la Ley 12/2023', color: 'rose' },
+        { label: 'Oferta alquiler de temporada / habitaciones', value: '+56.4%', trend: 'up', detail: 'Fuga hacia contratos excluidos de la ley', comparison: 'vs. oferta residencial tradicional', color: 'amber' },
+        { label: 'Número de candidatos por piso anunciado', value: '115 pers.', trend: 'up', detail: 'Hipercompetencia por cada anuncio en 24h', comparison: 'vs. 28 candidatos en 2021 (+310% colapso)', color: 'rose' }
       ],
       chartData: {
         title: 'Evolución de Oferta vs Candidatos por Piso (Índice Base 100)',
@@ -115,9 +115,9 @@ export const ARGUMENTS: ArgumentItem[] = [
       headline: 'Rigidez del Despido vs Paro Juvenil en Europa',
       summary: 'Los países de la UE con menor coste e indemnización por despido registran tasas de desempleo juvenil hasta 4 veces inferiores a las de España.',
       metrics: [
-        { label: 'Paro juvenil en España (OCDE)', value: '26.8%', trend: 'up', detail: 'Líder histórico de la Unión Europea', color: 'rose' },
-        { label: 'Paro juvenil en Países Bajos', value: '7.4%', trend: 'neutral', detail: 'Mercado de alta flexibilidad y rápida contratación', color: 'emerald' },
-        { label: 'Paro juvenil en Dinamarca (Flexisecurity)', value: '8.2%', trend: 'neutral', detail: 'Despido ágil combinado con recolocación activa', color: 'emerald' }
+        { label: 'Paro juvenil en España (OCDE)', value: '26.8%', trend: 'up', detail: 'Líder histórico de la Unión Europea', comparison: 'vs. 14.4% media UE y 7.4% en Países Bajos', color: 'rose' },
+        { label: 'Paro juvenil en Países Bajos', value: '7.4%', trend: 'neutral', detail: 'Mercado de alta flexibilidad y rápida contratación', comparison: 'vs. 26.8% en España (mercado de despido ágil)', color: 'emerald' },
+        { label: 'Paro juvenil en Dinamarca (Flexisecurity)', value: '8.2%', trend: 'neutral', detail: 'Despido ágil combinado con recolocación activa', comparison: 'vs. modelo rígido español de 33 días/año', color: 'emerald' }
       ],
       chartData: {
         title: 'Tasa de Desempleo Juvenil (%) vs Flexibilidad de Contratación',
@@ -181,9 +181,9 @@ export const ARGUMENTS: ArgumentItem[] = [
       headline: 'Datos de Presión y Satisfacción Sanitaria en España',
       summary: 'El sector privado realiza el 30% de las intervenciones quirúrgicas del país con una valoración ciudadana superior al 80%.',
       metrics: [
-        { label: 'Españoles con seguro privado / mutua', value: '12.4 M', trend: 'up', detail: 'Ahorro directo de recursos al SNS', color: 'emerald' },
-        { label: 'Tiempo medio de espera para cirugía en SNS', value: '121 días', trend: 'up', detail: 'Datos Ministerio de Sanidad (2024)', color: 'rose' },
-        { label: 'Ahorro estimado para las arcas públicas', value: '1.674 €/año', trend: 'neutral', detail: 'Por cada asegurado privado que no usa la pública', color: 'cyan' }
+        { label: 'Españoles con seguro privado / mutua', value: '12.4 M', trend: 'up', detail: 'Ahorro directo de recursos al SNS', comparison: 'vs. 8.7 M en 2014 (+42% de personas que desahogan la pública)', color: 'emerald' },
+        { label: 'Tiempo medio de espera para cirugía en SNS', value: '121 días', trend: 'up', detail: 'Datos Ministerio de Sanidad (2024)', comparison: 'vs. menos de 30 días en centros de sanidad privada', color: 'rose' },
+        { label: 'Ahorro estimado para las arcas públicas', value: '1.674 €/año', trend: 'neutral', detail: 'Por cada asegurado privado que no usa la pública', comparison: 'vs. gasto medio por paciente financiado con impuestos', color: 'cyan' }
       ],
       chartData: {
         title: 'Días de Espera Media para Cirugía: Sistema Público (SNS)',
@@ -248,9 +248,9 @@ export const ARGUMENTS: ArgumentItem[] = [
       headline: 'Estudios del Banco de España e Isema sobre el SMI',
       summary: 'El impacto negativo no suele verse en despidos masivos inmediatos, sino en puestos no creados y reducción de horas efectivas.',
       metrics: [
-        { label: 'Empleos no creados estimados (Banco de España)', value: '100k - 180k', trend: 'down', detail: 'Impacto acumulado en colectivos vulnerables', color: 'rose' },
-        { label: 'Tasa paro juvenil en regiones de menor renta', value: '> 35%', trend: 'up', detail: 'Donde el SMI supone >75% del salario medio', color: 'rose' },
-        { label: 'Coste empresa real por SMI (con cotizaciones)', value: '1.630 €/mes', trend: 'up', detail: 'Aunque el neto del trabajador ronde los 1.180 €', color: 'amber' }
+        { label: 'Empleos no creados estimados (Banco de España)', value: '100k - 180k', trend: 'down', detail: 'Impacto acumulado en colectivos vulnerables', comparison: 'vs. escenario de creación de empleo sin alzas forzadas', color: 'rose' },
+        { label: 'Tasa paro juvenil en regiones de menor renta', value: '> 35%', trend: 'up', detail: 'Donde el SMI supone >75% del salario medio', comparison: 'vs. 18% en regiones industriales donde el SMI no asfixia', color: 'rose' },
+        { label: 'Coste empresa real por SMI (con cotizaciones)', value: '1.630 €/mes', trend: 'up', detail: 'Aunque el neto del trabajador ronde los 1.180 €', comparison: 'vs. 1.184 € nómina bruta (+32.5% cuota patronal a la SS)', color: 'amber' }
       ],
       chartData: {
         title: 'Evolución del SMI Bruto vs Coste Laboral Total Empresa (€/mes)',
@@ -315,9 +315,9 @@ export const ARGUMENTS: ArgumentItem[] = [
       headline: 'El experimento europeo con el Impuesto al Patrimonio',
       summary: 'De los 12 países de la OCDE que gravaban el patrimonio en 1990, casi todos lo eliminaron tras constatar pérdidas fiscales netas.',
       metrics: [
-        { label: 'Países de la OCDE con impuesto al patrimonio (1990)', value: '12 países', trend: 'neutral', detail: 'Suecia, Francia, Alemania, Austria, etc.', color: 'emerald' },
-        { label: 'Países de la UE que lo mantienen hoy', value: '1 país', trend: 'down', detail: 'España (única excepción de la Unión Europea)', color: 'rose' },
-        { label: 'Millonarios fugados de Francia antes de suprimirlo', value: '> 60.000', trend: 'up', detail: 'Informe del Senado Francés (2017)', color: 'amber' }
+        { label: 'Países de la OCDE con impuesto al patrimonio (1990)', value: '12 países', trend: 'neutral', detail: 'Suecia, Francia, Alemania, Austria, etc.', comparison: 'vs. la actualidad (la mayoría lo abolió por fuga de capital)', color: 'emerald' },
+        { label: 'Países de la UE que lo mantienen hoy', value: '1 país', trend: 'down', detail: 'España (única excepción de la Unión Europea)', comparison: 'vs. 26 socios comunitarios que lo suprimieron (solo España)', color: 'rose' },
+        { label: 'Millonarios fugados de Francia antes de suprimirlo', value: '> 60.000', trend: 'up', detail: 'Informe del Senado Francés (2017)', comparison: 'vs. recaudación neta (el fisco francés perdió el doble en IRPF e IVA)', color: 'amber' }
       ],
       chartData: {
         title: 'Países europeos con Impuesto sobre el Patrimonio Neto',
@@ -380,9 +380,9 @@ export const ARGUMENTS: ArgumentItem[] = [
       headline: 'Datos Oficiales del Banco de España y CNMC',
       summary: 'El análisis de la cadena agroalimentaria confirma que los supermercados no ensancharon sus márgenes durante la crisis inflacionaria.',
       metrics: [
-        { label: 'Margen neto medio de la distribución alimentaria', value: '2.5% - 3.1%', trend: 'neutral', detail: 'De cada 100€ vendidos, solo ~2.7€ son beneficio', color: 'emerald' },
-        { label: 'Subida media de costes de insumos en origen', value: '+42%', trend: 'up', detail: 'Electricidad, fertilizantes, piensos y carburante', color: 'rose' },
-        { label: 'Puestos de trabajo directos del sector', value: '> 350.000', trend: 'neutral', detail: 'Una de las mayores fuentes de empleo privado', color: 'cyan' }
+        { label: 'Margen neto medio de la distribución alimentaria', value: '2.5% - 3.1%', trend: 'neutral', detail: 'De cada 100€ vendidos, solo ~2.7€ son beneficio', comparison: 'vs. 15% - 25% de sectores industriales o tecnológicos', color: 'emerald' },
+        { label: 'Subida media de costes de insumos en origen', value: '+42%', trend: 'up', detail: 'Electricidad, fertilizantes, piensos y carburante', comparison: 'vs. precios agrícolas previos al shock inflacionario de 2021', color: 'rose' },
+        { label: 'Puestos de trabajo directos del sector', value: '> 350.000', trend: 'neutral', detail: 'Una de las mayores fuentes de empleo privado', comparison: 'vs. empleo público deficitario (empleo productivo de mercado)', color: 'cyan' }
       ],
       chartData: {
         title: 'Desglose Real de 100 € de Compra en el Supermercado',
