@@ -102,11 +102,16 @@ export default function RootLayout({
         <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('pd-theme');if(t==='dark'){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}}catch(e){}})()`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} bg-[#060913] text-slate-100 min-h-screen flex flex-col font-sans relative`}>
+      <body className={`${inter.variable} min-h-screen flex flex-col font-sans relative text-slate-900 dark:text-slate-100`}>
         <BackgroundAtmosphere />
         <GoogleAnalyticsNoScript />
         <GoogleAnalytics />

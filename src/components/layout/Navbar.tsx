@@ -17,6 +17,7 @@ import {
   MessageSquare,
 } from 'lucide-react';
 import { SITE_CONFIG, SERVICES_DATA } from '@/data/siteData';
+import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 const serviceIcons: Record<string, typeof BarChart3> = {
   'power-bi':       BarChart3,
@@ -75,7 +76,7 @@ export function Navbar() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#080c14]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-nav py-3'
+            ? 'bg-[#faf8f5]/90 dark:bg-[#080c14]/90 backdrop-blur-xl border-b border-stone-200/80 dark:border-white/[0.06] shadow-sm dark:shadow-nav py-3'
             : 'bg-transparent py-5'
         }`}
       >
@@ -91,7 +92,7 @@ export function Navbar() {
                   src="/logos/PowerDashboardLogoMedio.webp"
                   alt="PowerDashboard.es — Consultoría Power BI y Looker Studio"
                   fill
-                  className="object-contain"
+                  className="object-contain dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.15)]"
                   priority
                   sizes="200px"
                 />
@@ -104,16 +105,16 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`relative px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
                     isActive(link.href)
-                      ? 'text-amber-400'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'text-amber-700 dark:text-amber-400'
+                      : 'text-stone-600 hover:text-stone-950 dark:text-slate-400 dark:hover:text-white'
                   }`}
                 >
                   {isActive(link.href) && (
                     <motion.span
                       layoutId="nav-indicator"
-                      className="absolute inset-0 rounded-lg bg-amber-500/10"
+                      className="absolute inset-0 rounded-lg bg-amber-500/10 dark:bg-amber-500/10"
                       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                     />
                   )}
@@ -129,17 +130,17 @@ export function Navbar() {
                 onMouseLeave={() => setServicesDropdown(false)}
               >
                 <button
-                  className={`relative px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
+                  className={`relative px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-1 ${
                     pathname.startsWith('/servicios')
-                      ? 'text-amber-400 bg-amber-500/10'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'text-amber-700 bg-amber-500/10 dark:text-amber-400'
+                      : 'text-stone-600 hover:text-stone-950 dark:text-slate-400 dark:hover:text-white'
                   }`}
                   aria-expanded={servicesDropdown}
                 >
                   Servicios
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      servicesDropdown ? 'rotate-180 text-amber-400' : ''
+                      servicesDropdown ? 'rotate-180 text-amber-600 dark:text-amber-400' : ''
                     }`}
                   />
                 </button>
@@ -153,7 +154,7 @@ export function Navbar() {
                       transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
                       className="absolute top-full left-0 w-[340px] pt-2"
                     >
-                      <div className="glass rounded-2xl p-2 shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-white/[0.07]">
+                      <div className="bg-white/95 dark:bg-slate-900/95 rounded-2xl p-2 shadow-xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-stone-200/90 dark:border-white/[0.07] backdrop-blur-xl">
                         {SERVICES_DATA.map((service, i) => {
                           const Icon = serviceIcons[service.id] || BarChart3;
                           return (
@@ -165,16 +166,16 @@ export function Navbar() {
                             >
                               <Link
                                 href={`/servicios/${service.slug}`}
-                                className="flex items-start gap-3 p-3 rounded-xl hover:bg-white/[0.04] transition-colors group/item"
+                                className="flex items-start gap-3 p-3 rounded-xl hover:bg-stone-100/70 dark:hover:bg-white/[0.04] transition-colors group/item"
                               >
-                                <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 group-hover/item:bg-amber-500 group-hover/item:text-slate-950 transition-all duration-200 mt-0.5 shrink-0">
+                                <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 group-hover/item:bg-amber-500 group-hover/item:text-slate-950 transition-all duration-200 mt-0.5 shrink-0">
                                   <Icon className="w-4 h-4" />
                                 </div>
                                 <div>
-                                  <div className="font-semibold text-white text-sm group-hover/item:text-amber-300 transition-colors">
+                                  <div className="font-semibold text-stone-900 dark:text-white text-sm group-hover/item:text-amber-700 dark:group-hover/item:text-amber-300 transition-colors">
                                     {service.title}
                                   </div>
-                                  <div className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                                  <div className="text-xs text-stone-500 dark:text-slate-500 line-clamp-1 mt-0.5">
                                     {service.shortDesc}
                                   </div>
                                 </div>
@@ -182,12 +183,12 @@ export function Navbar() {
                             </motion.div>
                           );
                         })}
-                        <div className="mx-3 my-1 h-px bg-white/[0.05]" />
+                        <div className="mx-3 my-1 h-px bg-stone-200/80 dark:bg-white/[0.05]" />
                         <Link
                           href="/auditoria-gratuita"
-                          className="flex items-center gap-2 p-3 rounded-xl text-sm font-semibold text-amber-300 hover:bg-amber-500/10 transition-colors"
+                          className="flex items-center gap-2 p-3 rounded-xl text-sm font-semibold text-amber-700 dark:text-amber-300 hover:bg-amber-500/10 transition-colors"
                         >
-                          <Sparkles className="w-4 h-4 text-amber-400" />
+                          <Sparkles className="w-4 h-4 text-amber-500" />
                           Auditoría Express Gratuita
                           <ArrowRight className="w-3.5 h-3.5 ml-auto" />
                         </Link>
@@ -199,12 +200,14 @@ export function Navbar() {
             </nav>
 
             {/* ── Desktop CTAs ──────────────────────────── */}
-            <div className="hidden md:flex items-center gap-2.5">
+            <div className="hidden md:flex items-center gap-2">
+              <ThemeToggle />
+
               <a
                 href={`https://wa.me/${SITE_CONFIG.founder.phoneClean}?text=Hola%20Guillermo,%20vengo%20de%20PowerDashboard.es%20y%20me%20gustar%C3%ADa%20consultar%20un%20proyecto.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl text-emerald-400 hover:bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-200"
+                className="p-2 rounded-xl text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 border border-emerald-500/20 hover:border-emerald-500/40 transition-all duration-200"
                 title="WhatsApp"
               >
                 <MessageSquare className="w-4 h-4" />
@@ -219,24 +222,28 @@ export function Navbar() {
               </Link>
             </div>
 
-            {/* ── Mobile Hamburger ─────────────────────── */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
-              aria-label="Menú"
-            >
-              <AnimatePresence mode="wait">
-                {isOpen ? (
-                  <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <X className="w-6 h-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <Menu className="w-6 h-6" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </button>
+            {/* ── Mobile Right Actions ─────────────────── */}
+            <div className="flex md:hidden items-center gap-2">
+              <ThemeToggle />
+
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 rounded-xl text-stone-600 hover:text-stone-900 dark:text-slate-400 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-white/[0.05] transition-colors"
+                aria-label="Menú"
+              >
+                <AnimatePresence mode="wait">
+                  {isOpen ? (
+                    <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                      <X className="w-6 h-6" />
+                    </motion.div>
+                  ) : (
+                    <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                      <Menu className="w-6 h-6" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </button>
+            </div>
           </div>
         </div>
       </motion.header>
@@ -257,14 +264,14 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-[min(85vw,360px)] bg-[#0a0e17] border-l border-white/[0.06] md:hidden flex flex-col"
+              className="fixed top-0 right-0 bottom-0 z-50 w-[min(85vw,360px)] bg-[#faf8f5] dark:bg-[#0a0e17] border-l border-stone-200 dark:border-white/[0.06] md:hidden flex flex-col shadow-2xl"
             >
               {/* Drawer header */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06]">
-                <span className="text-sm font-semibold text-amber-400">Menú</span>
+              <div className="flex items-center justify-between px-5 py-4 border-b border-stone-200 dark:border-white/[0.06]">
+                <span className="text-sm font-bold text-amber-700 dark:text-amber-400">Menú</span>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.05] transition-colors"
+                  className="p-2 rounded-lg text-stone-600 hover:text-stone-900 dark:text-slate-400 dark:hover:text-white hover:bg-stone-200/50 dark:hover:bg-white/[0.05] transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -281,10 +288,10 @@ export function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                      className={`block px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
                         isActive(link.href)
-                          ? 'text-amber-400 bg-amber-500/10'
-                          : 'text-slate-300 hover:text-white hover:bg-white/[0.04]'
+                          ? 'text-amber-700 bg-amber-500/10 dark:text-amber-400'
+                          : 'text-stone-700 hover:text-stone-950 hover:bg-stone-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04]'
                       }`}
                     >
                       {link.label}
@@ -299,7 +306,7 @@ export function Navbar() {
                   transition={{ delay: 0.25 }}
                   className="pt-2"
                 >
-                  <div className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-amber-500/80">
+                  <div className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-amber-700 dark:text-amber-500/80">
                     Servicios
                   </div>
                   <div className="pl-3 border-l-2 border-amber-500/30 space-y-1 ml-4">
@@ -312,7 +319,7 @@ export function Navbar() {
                       >
                         <Link
                           href={`/servicios/${service.slug}`}
-                          className="block px-3 py-2.5 rounded-xl text-sm text-slate-300 hover:text-amber-300 hover:bg-amber-500/5 transition-colors"
+                          className="block px-3 py-2.5 rounded-xl text-sm font-medium text-stone-700 hover:text-amber-700 hover:bg-amber-50 dark:text-slate-300 dark:hover:text-amber-300 dark:hover:bg-amber-500/5 transition-colors"
                         >
                           {service.title}
                         </Link>
@@ -323,10 +330,10 @@ export function Navbar() {
               </nav>
 
               {/* Drawer footer CTAs */}
-              <div className="px-4 pb-6 pt-3 border-t border-white/[0.06] space-y-3">
+              <div className="px-4 pb-6 pt-3 border-t border-stone-200 dark:border-white/[0.06] space-y-3">
                 <Link
                   href="/auditoria-gratuita"
-                  className="block text-center px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-semibold text-sm"
+                  className="block text-center px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300 font-semibold text-sm"
                 >
                   ✨ Auditoría Express Gratuita
                 </Link>
@@ -340,7 +347,7 @@ export function Navbar() {
                   href={`https://wa.me/${SITE_CONFIG.founder.phoneClean}?text=Hola%20Guillermo,%20vengo%20de%20PowerDashboard.es.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 text-emerald-300 font-medium text-sm"
+                  className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 font-semibold text-sm"
                 >
                   <MessageSquare className="w-4 h-4" />
                   WhatsApp

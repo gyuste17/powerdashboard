@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
@@ -10,12 +9,11 @@ import { DASHBOARD_EXAMPLES } from '@/data/siteData';
 
 const CATEGORIES = ['Todos', 'Ventas', 'Finanzas', 'Marketing', 'Operaciones', 'RRHH'];
 
-// Map tools to badge colors
 const TOOL_COLORS: Record<string, string> = {
-  'Power BI':     'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-  'Looker Studio':'bg-blue-500/20 text-blue-300 border-blue-500/30',
-  'Tableau':      'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
-  default:        'bg-slate-700/60 text-slate-300 border-slate-600/50',
+  'Power BI':     'bg-amber-100 text-amber-900 border-amber-300 dark:bg-yellow-500/20 dark:text-yellow-300 dark:border-yellow-500/30',
+  'Looker Studio':'bg-sky-100 text-sky-900 border-sky-300 dark:bg-blue-500/20 dark:text-blue-300 dark:border-blue-500/30',
+  'Tableau':      'bg-indigo-100 text-indigo-900 border-indigo-300 dark:bg-indigo-500/20 dark:text-indigo-300 dark:border-indigo-500/30',
+  default:        'bg-stone-100 text-stone-800 border-stone-300 dark:bg-slate-700/60 dark:text-slate-300 dark:border-slate-600/50',
 };
 
 function getToolColor(tool: string) {
@@ -32,12 +30,7 @@ export function ShowcaseSection() {
     : DASHBOARD_EXAMPLES.filter((d) => d.category === selected);
 
   return (
-    <section className="py-28 relative bg-transparent overflow-hidden" id="dashboards">
-      {/* Luminous ambient backdrops */}
-      <div className="absolute top-1/4 right-[-5%] w-[600px] h-[600px] bg-cyan-500/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-1/4 left-[-5%] w-[550px] h-[550px] bg-amber-500/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
-
+    <section className="py-24 relative bg-transparent overflow-hidden" id="dashboards">
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* ── Header ─────────────────────────────── */}
         <motion.div
@@ -47,34 +40,34 @@ export function ShowcaseSection() {
           className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
         >
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-amber text-amber-400 text-xs font-bold uppercase tracking-widest mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-amber text-xs font-bold uppercase tracking-widest mb-4">
               <Layers className="w-3.5 h-3.5" />
               Casos Reales y Proyectos
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-stone-900 dark:text-white tracking-tight">
               Galería de{' '}
               <span className="gradient-text">Cuadros de Mando</span>
             </h2>
-            <p className="text-slate-400 text-base mt-3 max-w-xl leading-relaxed">
+            <p className="text-stone-600 dark:text-slate-400 text-base mt-3 max-w-xl leading-relaxed">
               Dashboards interactivos desarrollados para distintos sectores y áreas operativas.
             </p>
           </div>
 
           {/* Category filter */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-stone-100 dark:bg-slate-950/80 rounded-2xl border border-stone-200/80 dark:border-white/[0.06]">
             {CATEGORIES.map((cat) => (
-              <motion.button
+              <button
                 key={cat}
                 onClick={() => setSelected(cat)}
-                whileTap={{ scale: 0.95 }}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
+                type="button"
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 ${
                   selected === cat
-                    ? 'bg-amber-500 text-slate-950 shadow-amber-glow-sm'
-                    : 'glass text-slate-400 hover:text-white border border-white/[0.06] hover:border-amber-500/30'
+                    ? 'bg-amber-500 text-slate-950 shadow-xs'
+                    : 'text-stone-600 hover:text-stone-900 dark:text-slate-400 dark:hover:text-white'
                 }`}
               >
                 {cat}
-              </motion.button>
+              </button>
             ))}
           </div>
         </motion.div>
@@ -89,11 +82,11 @@ export function ShowcaseSection() {
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                transition={{ delay: index * 0.07, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="group bg-[#0f172a]/80 border border-white/[0.06] hover:border-amber-500/25 rounded-2xl overflow-hidden flex flex-col card-hover"
+                transition={{ delay: index * 0.05, duration: 0.35 }}
+                className="group bg-white/90 dark:bg-[#0f172a]/80 border border-stone-200/90 dark:border-white/[0.08] hover:border-amber-500/40 rounded-3xl overflow-hidden flex flex-col shadow-sm hover:shadow-xl dark:shadow-none transition-all duration-300"
               >
                 {/* Image */}
-                <div className="relative h-48 bg-slate-950 overflow-hidden">
+                <div className="relative h-48 bg-stone-100 dark:bg-slate-950 overflow-hidden">
                   <Image
                     src={dashboard.image}
                     alt={dashboard.title}
@@ -103,45 +96,37 @@ export function ShowcaseSection() {
                   />
 
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
                   {/* Tool + Category badges */}
                   <div className="absolute top-3 left-3 flex gap-1.5">
-                    <span className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border backdrop-blur-sm ${getToolColor(dashboard.tool)}`}>
+                    <span className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border backdrop-blur-md ${getToolColor(dashboard.tool)}`}>
                       {dashboard.tool}
                     </span>
-                    <span className="px-2.5 py-1 rounded-lg bg-amber-500/85 text-[10px] font-bold text-slate-950 backdrop-blur-sm">
+                    <span className="px-2.5 py-1 rounded-lg bg-amber-500 text-[10px] font-bold text-slate-950 shadow-xs">
                       {dashboard.category}
                     </span>
-                  </div>
-
-                  {/* Hover overlay CTA */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="glass px-4 py-2 rounded-xl flex items-center gap-2 text-xs font-semibold text-white border border-white/10">
-                      <ExternalLink className="w-3.5 h-3.5 text-amber-400" />
-                      Ver detalles
-                    </div>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-bold text-lg text-white group-hover:text-amber-300 transition-colors duration-200">
+                  <h3 className="font-bold text-lg text-stone-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-300 transition-colors duration-200">
                     {dashboard.title}
                   </h3>
-                  <p className="text-sm text-slate-400 leading-relaxed mt-2 flex-1">
+                  <p className="text-sm text-stone-600 dark:text-slate-400 leading-relaxed mt-2 flex-1">
                     {dashboard.description}
                   </p>
 
                   {/* Highlight */}
-                  <div className="mt-4 p-3 rounded-xl glass-amber text-xs font-medium text-amber-200 flex items-start gap-2">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                  <div className="mt-4 p-3 rounded-2xl glass-amber text-xs font-semibold flex items-start gap-2">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
                     <span>{dashboard.highlight}</span>
                   </div>
 
                   {/* KPI tags */}
                   <div className="mt-4">
-                    <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">
+                    <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-stone-400 dark:text-slate-500 mb-2">
                       <Tag className="w-3 h-3" />
                       KPIs integrados
                     </div>
@@ -149,7 +134,7 @@ export function ShowcaseSection() {
                       {dashboard.kpis.map((kpi, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-0.5 rounded-md bg-slate-900/80 text-[10px] text-slate-400 border border-white/[0.05]"
+                          className="px-2 py-0.5 rounded-lg bg-stone-100 dark:bg-slate-900/80 text-[10px] font-medium text-stone-600 dark:text-slate-400 border border-stone-200/80 dark:border-white/[0.05]"
                         >
                           {kpi}
                         </span>
@@ -160,10 +145,10 @@ export function ShowcaseSection() {
                   {/* CTA */}
                   <Link
                     href={`/contacto?proyecto=${dashboard.id}`}
-                    className="mt-5 w-full py-2.5 px-4 rounded-xl text-xs font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 group/cta
-                      bg-white/[0.03] hover:bg-amber-500 text-slate-400 hover:text-slate-950 border border-white/[0.06] hover:border-amber-500"
+                    className="mt-5 w-full py-2.5 px-4 rounded-xl text-xs font-bold transition-all duration-300 flex items-center justify-center gap-1.5 group/cta
+                      bg-stone-100 hover:bg-amber-500 hover:text-slate-950 text-stone-800 dark:bg-white/[0.03] dark:hover:bg-amber-500 dark:text-slate-300 dark:hover:text-slate-950 border border-stone-200/80 dark:border-white/[0.06] hover:border-amber-500"
                   >
-                    Solicitar dashboard similar
+                    <span>Solicitar dashboard similar</span>
                     <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/cta:translate-x-1" />
                   </Link>
                 </div>
@@ -173,20 +158,15 @@ export function ShowcaseSection() {
         </motion.div>
 
         {/* View all CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="mt-12 text-center"
-        >
+        <div className="mt-12 text-center">
           <Link
             href="/portfolio"
             className="btn-secondary inline-flex group"
           >
-            Ver todos los proyectos detallados
-            <ArrowRight className="w-4 h-4 text-amber-400 transition-transform group-hover:translate-x-1" />
+            <span>Ver todos los proyectos detallados</span>
+            <ArrowRight className="w-4 h-4 text-amber-600 dark:text-amber-400 transition-transform group-hover:translate-x-1" />
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

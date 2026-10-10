@@ -4,23 +4,23 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
 import {
-  ShieldCheck,
-  Linkedin,
-  CheckCircle2,
-  ArrowRight,
-  Star,
-  Clock,
   Award,
+  CheckCircle2,
   Users,
+  Clock,
   Briefcase,
+  ArrowRight,
+  ShieldCheck,
+  Star,
+  Linkedin,
 } from 'lucide-react';
 import { SITE_CONFIG } from '@/data/siteData';
 
 const CREDENTIALS = [
-  { icon: Award,    label: '+7 Años BI',          sub: 'Power BI, SQL, Python',  color: 'text-amber-400', bg: 'bg-amber-500/10' },
-  { icon: Users,    label: '100% Entregados',      sub: 'Proyectos a tiempo',     color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-  { icon: Clock,    label: 'Respuesta < 48h',      sub: 'Diagnóstico y propuesta',color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
-  { icon: Briefcase,label: 'Trato 1 a 1',          sub: 'Sin intermediarios',     color: 'text-violet-400', bg: 'bg-violet-500/10' },
+  { icon: Award,    label: '+7 Años BI',          sub: 'Power BI, SQL, Python',  color: 'text-amber-700 dark:text-amber-400', bg: 'bg-amber-100 dark:bg-amber-500/10' },
+  { icon: Users,    label: '100% Entregados',      sub: 'Proyectos a tiempo',     color: 'text-emerald-700 dark:text-emerald-400', bg: 'bg-emerald-100 dark:bg-emerald-500/10' },
+  { icon: Clock,    label: 'Respuesta < 48h',      sub: 'Diagnóstico y propuesta',color: 'text-cyan-700 dark:text-cyan-400', bg: 'bg-cyan-100 dark:bg-cyan-500/10' },
+  { icon: Briefcase,label: 'Trato 1 a 1',          sub: 'Sin intermediarios',     color: 'text-violet-700 dark:text-violet-400', bg: 'bg-violet-100 dark:bg-violet-500/10' },
 ];
 
 const CHECKLIST = [
@@ -35,12 +35,7 @@ export function FounderSection() {
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section className="py-28 bg-transparent relative overflow-hidden" id="sobre-mi">
-      {/* Background aurora */}
-      <div className="absolute top-1/2 right-[-5%] w-[600px] h-[600px] bg-amber-500/12 blur-[150px] rounded-full -translate-y-1/2 pointer-events-none" />
-      <div className="absolute top-1/2 left-[-5%] w-[450px] h-[500px] bg-indigo-600/15 blur-[140px] rounded-full -translate-y-1/2 pointer-events-none" />
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-500/25 to-transparent" />
-
+    <section className="py-24 bg-transparent relative overflow-hidden" id="sobre-mi">
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* ── Left: Text content ─────────────────── */}
@@ -50,33 +45,33 @@ export function FounderSection() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-7"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-amber text-amber-400 text-xs font-bold uppercase tracking-widest">
-              <Star className="w-3.5 h-3.5 fill-amber-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-amber text-xs font-bold uppercase tracking-widest">
+              <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
               Especialista & Fundador
             </div>
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-stone-900 dark:text-white leading-tight">
               Hola, soy{' '}
               <span className="gradient-text">{SITE_CONFIG.founder.name}</span>
               <br />
-              <span className="text-2xl sm:text-3xl font-bold text-slate-300">
+              <span className="text-2xl sm:text-3xl font-bold text-stone-600 dark:text-slate-300">
                 Tu consultor de datos de confianza
               </span>
             </h2>
 
-            <div className="space-y-4 text-slate-300 leading-relaxed">
+            <div className="space-y-4 text-stone-600 dark:text-slate-300 leading-relaxed">
               <p>
                 Llevo más de{' '}
-                <strong className="text-white">7 años dedicado a la consultoría,
+                <strong className="text-stone-900 dark:text-white font-bold">7 años dedicado a la consultoría,
                 modelado de datos y formación en Business Intelligence</strong>{' '}
                 (Power BI, Looker Studio, Tableau y SQL).
               </p>
               <p>
-                Creé <strong className="text-amber-300">PowerDashboard.es</strong> con una
+                Creé <strong className="text-amber-800 dark:text-amber-300 font-bold">PowerDashboard.es</strong> con una
                 misión clara: acercar el Business Intelligence de primer nivel a PYMEs y
                 directivos, eliminando el coste inflado y la lentitud de las grandes agencias.
               </p>
-              <p className="text-slate-400 text-sm">
+              <p className="text-stone-500 dark:text-slate-400 text-sm">
                 Cuando trabajas conmigo, no tratas con comerciales ni con juniors a los que
                 delegan tu cuenta. Tratas 1 a 1 con el especialista que entiende tu negocio
                 y programa tus modelos.
@@ -91,33 +86,37 @@ export function FounderSection() {
                   initial={{ opacity: 0, x: -12 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: 0.3 + i * 0.08, duration: 0.5 }}
-                  className="flex items-center gap-2.5 text-sm text-slate-200"
+                  className="flex items-center gap-2.5 text-sm text-stone-700 dark:text-slate-200 font-medium"
                 >
-                  <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0" />
-                  {item}
+                  <CheckCircle2 className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span>{item}</span>
                 </motion.div>
               ))}
             </div>
 
-            {/* CTA Buttons */}
+            {/* CTAs */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.5, duration: 0.5 }}
-              className="flex flex-wrap gap-4 pt-2"
+              className="flex flex-wrap items-center gap-4 pt-2"
             >
-              <Link href="/contacto" className="btn-primary group">
-                Reservar llamada de diagnóstico
+              <Link
+                href="/contacto"
+                className="btn-primary group"
+              >
+                <span>Hablar con Guillermo</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
+
               <a
                 href={SITE_CONFIG.founder.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary group"
               >
-                <Linkedin className="w-4 h-4 text-sky-400" />
-                LinkedIn
+                <Linkedin className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+                <span>LinkedIn</span>
               </a>
             </motion.div>
           </motion.div>
@@ -130,21 +129,20 @@ export function FounderSection() {
             className="space-y-5"
           >
             {/* Profile card */}
-            <div className="glass rounded-2xl p-6 border border-white/[0.07] relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-amber-500/10 blur-[60px] rounded-full" />
+            <div className="glass rounded-3xl p-6 relative overflow-hidden">
               <div className="flex items-center gap-4 relative">
                 {/* Avatar */}
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-black text-2xl flex items-center justify-center shadow-amber-glow-sm shrink-0">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 text-slate-950 font-black text-2xl flex items-center justify-center shadow-md shrink-0">
                   GY
                 </div>
                 <div>
-                  <h3 className="font-bold text-white text-lg">{SITE_CONFIG.founder.name}</h3>
-                  <p className="text-sm text-amber-400 font-medium">{SITE_CONFIG.founder.role}</p>
-                  <p className="text-xs text-slate-500 mt-0.5">{SITE_CONFIG.founder.location}</p>
+                  <h3 className="font-bold text-stone-900 dark:text-white text-lg">{SITE_CONFIG.founder.name}</h3>
+                  <p className="text-sm text-amber-700 dark:text-amber-400 font-semibold">{SITE_CONFIG.founder.role}</p>
+                  <p className="text-xs text-stone-500 dark:text-slate-500 mt-0.5">{SITE_CONFIG.founder.location}</p>
                 </div>
                 {/* Active badge */}
-                <div className="ml-auto flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 shrink-0">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <div className="ml-auto flex items-center gap-1.5 text-xs text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-300 dark:border-emerald-500/20 shrink-0 font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   Disponible
                 </div>
               </div>
@@ -159,33 +157,28 @@ export function FounderSection() {
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.3 + i * 0.1, duration: 0.5 }}
                   whileHover={{ y: -3, transition: { duration: 0.2 } }}
-                  className="glass rounded-2xl p-5 border border-white/[0.06] hover:border-white/[0.12] transition-all group cursor-default"
+                  className="glass rounded-3xl p-5 transition-all group cursor-default"
                 >
-                  <div className={`p-2.5 rounded-xl ${cred.bg} w-fit mb-3 group-hover:scale-110 transition-transform`}>
+                  <div className={`p-2.5 rounded-2xl ${cred.bg} w-fit mb-3 group-hover:scale-105 transition-transform`}>
                     <cred.icon className={`w-5 h-5 ${cred.color}`} />
                   </div>
                   <div className={`text-lg font-black ${cred.color}`}>{cred.label}</div>
-                  <div className="text-xs text-slate-500 mt-0.5">{cred.sub}</div>
+                  <div className="text-xs text-stone-500 dark:text-slate-500 mt-0.5">{cred.sub}</div>
                 </motion.div>
               ))}
             </div>
 
             {/* Guarantee */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              className="glass-amber rounded-2xl p-5 flex items-start gap-3"
-            >
-              <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+            <div className="glass-amber rounded-3xl p-5 flex items-start gap-3">
+              <ShieldCheck className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
               <div>
-                <div className="text-xs font-bold text-amber-300 mb-1">Garantía de Satisfacción</div>
-                <p className="text-xs text-amber-200/70 leading-relaxed">
+                <div className="text-xs font-bold text-amber-900 dark:text-amber-300 mb-1">Garantía de Satisfacción</div>
+                <p className="text-xs text-amber-800/80 dark:text-amber-200/70 leading-relaxed">
                   Si en la primera fase de diseño el cuadro de mando no cumple con tus
                   requisitos acordados, lo ajustamos sin coste adicional.
                 </p>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
