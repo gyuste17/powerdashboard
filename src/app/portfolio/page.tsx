@@ -26,7 +26,7 @@ export default function PortfolioPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <div className="pt-28 bg-transparent min-h-screen">
-        <ShowcaseSection />
+        <ShowcaseSection showPortfolioLink={false} />
       </div>
     </>
   );

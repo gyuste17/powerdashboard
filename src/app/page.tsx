@@ -1,24 +1,18 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/home/Hero";
-import { ServiceMatrix } from "@/components/home/ServiceMatrix";
+import { TechLogos } from "@/components/home/TechLogos";
 import { generateFaqJsonLd } from "@/lib/jsonLd";
 
-const InteractiveDashboardDemo = dynamic(
-  () => import("@/components/dashboard-demo/InteractiveDashboardDemo").then((mod) => mod.InteractiveDashboardDemo),
-  {
-    loading: () => <div className="w-full h-[500px] rounded-2xl bg-slate-900/40 animate-pulse border border-white/5" />,
-  }
-);
-
-const RoiCalculator = dynamic(
-  () => import("@/components/home/RoiCalculator").then((mod) => mod.RoiCalculator),
-  {
-    loading: () => <div className="w-full h-[400px] rounded-2xl bg-slate-900/40 animate-pulse" />,
-  }
+const ChaosToControl = dynamic(
+  () => import("@/components/home/ChaosToControl").then((mod) => mod.ChaosToControl)
 );
 
 const ShowcaseSection = dynamic(
   () => import("@/components/home/ShowcaseSection").then((mod) => mod.ShowcaseSection)
+);
+
+const HowItWorks = dynamic(
+  () => import("@/components/home/HowItWorks").then((mod) => mod.HowItWorks)
 );
 
 const FounderSection = dynamic(
@@ -46,34 +40,32 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      
-      {/* 1. Hero Section */}
+
+      {/* 1. Hero + framed flagship dashboard */}
       <Hero />
 
-      {/* 2. Live Interactive Dashboard Showcase right under Hero */}
-      <section className="py-8 sm:py-16 bg-transparent px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto -mt-6 sm:-mt-12 relative z-20">
-        <InteractiveDashboardDemo />
-      </section>
+      {/* 2. Technology ecosystem */}
+      <TechLogos />
 
-      {/* 3. Core Services & Topical Authority */}
-      <ServiceMatrix />
+      {/* 3. Problem vs solution */}
+      <ChaosToControl />
 
-      {/* 4. Interactive ROI & Savings Calculator */}
-      <RoiCalculator />
-
-      {/* 5. Real Dashboards Showcase & Categorized Portfolio */}
+      {/* 4. Real dashboards gallery */}
       <ShowcaseSection />
 
-      {/* 6. Founder & E-E-A-T Section (Guillermo Yuste) */}
+      {/* 5. Process in 3 steps + services (#servicios) */}
+      <HowItWorks />
+
+      {/* 6. Founder & authority */}
       <FounderSection />
 
-      {/* 7. Transparent Pricing */}
+      {/* 7. Transparent pricing */}
       <PricingSection />
 
-      {/* 8. FAQs for GEO & Search Intent */}
+      {/* 8. FAQs */}
       <FaqSection />
 
-      {/* 9. Final High-Conversion CTA */}
+      {/* 9. Final CTA */}
       <CtaSection />
     </>
   );

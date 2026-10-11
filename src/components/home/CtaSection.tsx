@@ -1,126 +1,64 @@
 'use client';
 
-import { useRef } from 'react';
 import Link from 'next/link';
-import { motion, useInView } from 'framer-motion';
-import { Sparkles, ArrowRight, MessageSquare, CheckCircle2, Zap, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowRight, MessageSquare } from 'lucide-react';
 import { SITE_CONFIG } from '@/data/siteData';
 
-const TRUST_POINTS = [
-  { icon: CheckCircle2, text: 'Sin compromiso de contratación' },
-  { icon: Clock,        text: 'Respuesta en < 24h laborables' },
-  { icon: Zap,          text: 'Propuesta personalizada y detallada' },
-];
+const TRUST_POINTS = ['Sin compromiso', 'Respuesta en menos de 48h', 'Presupuesto cerrado'];
 
 export function CtaSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
-
   return (
-    <section className="py-28 bg-transparent relative overflow-hidden" ref={ref}>
-      {/* Large ambient glow */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        animate={{ opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-amber-500/12 blur-[100px] rounded-full" />
-      </motion.div>
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <section className="py-24 sm:py-32">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, scale: 0.97, y: 24 }}
-          animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative rounded-3xl overflow-hidden"
+          className="relative overflow-hidden rounded-3xl px-6 py-16 sm:px-16 sm:py-24 text-center bg-stone-900 dark:bg-white/[0.04] ring-1 ring-stone-900 dark:ring-white/[0.08]"
         >
-          {/* Card gradient bg */}
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-500 via-amber-400 to-amber-600" />
+          <div
+            aria-hidden="true"
+            className="absolute -top-40 left-1/2 -translate-x-1/2 w-[640px] h-[320px] rounded-full bg-amber-500/25 blur-[100px]"
+          />
 
-          {/* Decorative noise/texture overlay */}
-          <div className="absolute inset-0 opacity-[0.08]" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          }} />
+          <div className="relative">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1] text-white max-w-3xl mx-auto text-balance">
+              Descubre en 48 horas lo que tus datos pueden decirte
+            </h2>
+            <p className="mt-6 text-lg leading-relaxed text-stone-300 dark:text-slate-400 max-w-2xl mx-auto">
+              Revisamos tus fuentes de datos y te propongo estructura, KPIs y presupuesto cerrado.
+              Gratis y sin compromiso.
+            </p>
 
-          {/* Decorative circle blobs */}
-          <div className="absolute -right-24 -top-24 w-80 h-80 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute -left-24 -bottom-24 w-80 h-80 bg-black/15 rounded-full blur-3xl" />
-          <div className="absolute right-1/3 top-0 w-40 h-40 bg-white/5 rounded-full blur-2xl" />
-
-          {/* Content */}
-          <div className="relative p-10 sm:p-14 lg:p-20 text-center">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1, duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/15 text-slate-950 text-xs font-black uppercase tracking-widest mb-6"
-            >
-              <Sparkles className="w-4 h-4" />
-              Sin compromiso · Gratis
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.15, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight max-w-3xl mx-auto"
-            >
-              ¿Listo para transformar los datos de tu empresa en ventaja competitiva?
-            </motion.h2>
-
-            {/* Subheadline */}
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.25, duration: 0.5 }}
-              className="text-slate-900 text-base sm:text-lg font-medium leading-relaxed max-w-2xl mx-auto mt-5"
-            >
-              Cuéntame qué fuentes de datos usas y recibirás una propuesta personalizada
-              con estructura recomendada y presupuesto cerrado en menos de 48 horas.
-            </motion.p>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.35, duration: 0.5 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8"
-            >
-              <Link
-                href="/contacto"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-950 hover:bg-slate-900 text-amber-400 font-bold text-base shadow-xl shadow-black/30 transition-all flex items-center justify-center gap-2.5 group"
-              >
-                <span>Solicitar Diagnóstico Gratuito</span>
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <Link href="/auditoria-gratuita" className="btn-primary w-full sm:w-auto group text-base px-7 py-3.5">
+                <span>Auditoría Gratuita en 48h</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
-
               <a
                 href={`https://wa.me/${SITE_CONFIG.founder.phoneClean}?text=Hola%20Guillermo,%20vengo%20de%20PowerDashboard.es%20y%20me%20gustar%C3%ADa%20consultar%20un%20proyecto.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/20 hover:bg-white/30 text-slate-950 font-bold text-base transition-all flex items-center justify-center gap-2.5 backdrop-blur-sm"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-base font-semibold text-white bg-white/10 hover:bg-white/15 ring-1 ring-white/15 transition-colors"
               >
-                <MessageSquare className="w-5 h-5" />
-                <span>WhatsApp directo</span>
+                <MessageSquare className="w-4 h-4 text-emerald-400" />
+                <span>Consulta por WhatsApp</span>
               </a>
-            </motion.div>
+            </div>
 
-            {/* Trust points */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.5 }}
-              className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-7 text-xs text-slate-900/80 font-semibold"
-            >
-              {TRUST_POINTS.map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-1.5">
-                  <Icon className="w-4 h-4 text-slate-950/60" />
-                  {text}
-                </div>
+            <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-stone-400 dark:text-slate-500">
+              {TRUST_POINTS.map((point) => (
+                <li key={point}>{point}</li>
               ))}
-            </motion.div>
+            </ul>
+            <p className="mt-6 text-sm text-stone-400 dark:text-slate-500">
+              ¿Prefieres escribir?{' '}
+              <Link href="/contacto" className="font-semibold text-amber-400 hover:underline">
+                Usa el formulario de contacto
+              </Link>
+            </p>
           </div>
         </motion.div>
       </div>
