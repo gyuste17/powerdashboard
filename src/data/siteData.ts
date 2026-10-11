@@ -17,7 +17,7 @@ export interface ServiceItem {
 export interface DashboardExample {
   id: string;
   title: string;
-  category: 'Ventas' | 'Finanzas' | 'Operaciones' | 'Marketing' | 'RRHH';
+  category: 'Dirección' | 'Ventas' | 'Finanzas' | 'Operaciones' | 'Marketing' | 'RRHH';
   tool: 'Power BI' | 'Looker Studio' | 'Tableau';
   description: string;
   image: string;
@@ -142,6 +142,16 @@ export const SERVICES_DATA: ServiceItem[] = [
 ];
 
 export const DASHBOARD_EXAMPLES: DashboardExample[] = [
+  {
+    id: 'executive-overview',
+    title: 'Cuadro de Mando Ejecutivo P&L y Dirección General',
+    category: 'Dirección',
+    tool: 'Power BI',
+    description: 'Visión consolidada de ingresos, rentabilidad neta, retención de clientes y previsión de tesorería para comités de dirección y CEOs.',
+    image: '/images/mockups/executive-dashboard-clean.jpg',
+    kpis: ['Ingresos Totales', 'Margen Neto %', 'Nuevos Clientes', 'CAC & Retención'],
+    highlight: 'Visibilidad integral en 1 solo clic para directores',
+  },
   {
     id: 'pbi-ventas',
     title: 'Cuadro de Mando Comercial & Pipeline de Ventas',

@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight, TrendingUp, Laptop, Globe } from 'lucide-react';
 import { DASHBOARD_EXAMPLES, type DashboardExample } from '@/data/siteData';
 import { BrowserFrame } from '@/components/ui/BrowserFrame';
+import { LaptopMockup } from '@/components/ui/LaptopMockup';
 import { SectionHeader } from '@/components/home/SectionHeader';
 import { cn } from '@/lib/utils';
 
@@ -24,18 +25,19 @@ interface ShowcaseSectionProps {
 
 export function ShowcaseSection({ showPortfolioLink = true }: ShowcaseSectionProps) {
   const [activeId, setActiveId] = useState(DASHBOARD_EXAMPLES[0].id);
+  const [frameMode, setFrameMode] = useState<'laptop' | 'browser'>('laptop');
   const active = DASHBOARD_EXAMPLES.find((d) => d.id === activeId) ?? DASHBOARD_EXAMPLES[0];
 
   return (
     <section className="py-24 sm:py-32" id="dashboards">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          eyebrow="Casos reales"
+          eyebrow="Casos reales & Dashboards"
           title="Cuadros de mando que ya están tomando decisiones"
-          description="Una selección de proyectos para ventas, finanzas, marketing, operaciones y personas. Cada uno resolvió una pregunta concreta de negocio."
+          description="Una selección de proyectos para dirección general, ventas, finanzas, marketing y operaciones. Cada uno resolvió una pregunta crítica de negocio."
         />
 
-        {/* Tabs */}
+        {/* ── Category & Tool Tabs ─────────────────────────── */}
         <div
           role="tablist"
           aria-label="Dashboards del portfolio"
@@ -55,40 +57,81 @@ export function ShowcaseSection({ showPortfolioLink = true }: ShowcaseSectionPro
                 className={cn(
                   'shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 whitespace-nowrap',
                   isActive
-                    ? 'bg-stone-900 text-white dark:bg-white dark:text-slate-950'
+                    ? 'bg-stone-900 text-white dark:bg-amber-500 dark:text-slate-950 font-semibold shadow-sm'
                     : 'text-stone-600 hover:text-stone-900 hover:bg-stone-200/60 dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/[0.06]'
                 )}
               >
                 {dashboard.category}
-                <span className={cn('ml-1.5', isActive ? 'opacity-60' : 'opacity-50')}>· {dashboard.tool}</span>
+                <span className={cn('ml-1.5', isActive ? 'opacity-80' : 'opacity-50')}>· {dashboard.tool}</span>
               </button>
             );
           })}
         </div>
 
-        {/* Panel */}
+        {/* ── Frame Switcher (Laptop vs Window) ───────────── */}
+        <div className="mt-8 flex justify-end">
+          <div className="inline-flex items-center p-1 rounded-xl bg-stone-200/60 dark:bg-slate-900/80 border border-stone-300/60 dark:border-white/10 text-xs">
+            <button
+              type="button"
+              onClick={() => setFrameMode('laptop')}
+              className={cn(
+                'px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium transition-colors',
+                frameMode === 'laptop'
+                  ? 'bg-white dark:bg-slate-800 text-stone-900 dark:text-white shadow-xs'
+                  : 'text-stone-500 dark:text-slate-400 hover:text-stone-900'
+              )}
+            >
+              <Laptop className="w-3.5 h-3.5" />
+              <span>Portátil</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setFrameMode('browser')}
+              className={cn(
+                'px-2.5 py-1 rounded-lg flex items-center gap-1.5 font-medium transition-colors',
+                frameMode === 'browser'
+                  ? 'bg-white dark:bg-slate-800 text-stone-900 dark:text-white shadow-xs'
+                  : 'text-stone-500 dark:text-slate-400 hover:text-stone-900'
+              )}
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span>Ventana</span>
+            </button>
+          </div>
+        </div>
+
+        {/* ── Main Panel ───────────────────────────────────── */}
         <div
           id="dashboard-panel"
           role="tabpanel"
           aria-labelledby={`tab-${active.id}`}
-          className="mt-10 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+          className="mt-6 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center"
         >
           <div className="lg:col-span-8">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
-                key={active.id}
+                key={`${active.id}-${frameMode}`}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.35, ease: EASE }}
               >
-                <BrowserFrame
-                  src={active.image}
-                  alt={active.title}
-                  url={`${TOOL_HOSTS[active.tool]}/${active.id}`}
-                  aspectRatio="1157 / 716"
-                  sizes="(max-width: 1024px) 100vw, 760px"
-                />
+                {frameMode === 'laptop' ? (
+                  <LaptopMockup
+                    src={active.image}
+                    alt={active.title}
+                    aspectRatio="16 / 10"
+                    priority
+                  />
+                ) : (
+                  <BrowserFrame
+                    src={active.image}
+                    alt={active.title}
+                    url={`${TOOL_HOSTS[active.tool]}/${active.id}`}
+                    aspectRatio="16 / 10"
+                    sizes="(max-width: 1024px) 100vw, 760px"
+                  />
+                )}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -112,15 +155,15 @@ export function ShowcaseSection({ showPortfolioLink = true }: ShowcaseSectionPro
                 {active.description}
               </p>
 
-              <div className="mt-6 flex items-start gap-3 rounded-xl p-4 bg-amber-50 dark:bg-amber-500/[0.08] ring-1 ring-amber-500/20">
+              <div className="mt-6 flex items-start gap-3 rounded-2xl p-4 bg-amber-50 dark:bg-amber-500/[0.08] ring-1 ring-amber-500/20">
                 <TrendingUp className="w-5 h-5 mt-0.5 text-amber-600 dark:text-amber-400 shrink-0" aria-hidden="true" />
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-amber-800/70 dark:text-amber-300/70">Impacto</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-amber-800/70 dark:text-amber-300/70">Impacto Estimado</p>
                   <p className="mt-0.5 font-semibold text-amber-900 dark:text-amber-200">{active.highlight}</p>
                 </div>
               </div>
 
-              <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-stone-400 dark:text-slate-500">KPIs principales</p>
+              <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-stone-400 dark:text-slate-500">KPIs Principales</p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {active.kpis.map((kpi) => (
                   <li
@@ -136,7 +179,7 @@ export function ShowcaseSection({ showPortfolioLink = true }: ShowcaseSectionPro
                 href={`/contacto?proyecto=${active.id}`}
                 className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-amber-700 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-300 group"
               >
-                Quiero un dashboard así
+                Quiero un dashboard así para mi empresa
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </motion.div>
@@ -146,7 +189,7 @@ export function ShowcaseSection({ showPortfolioLink = true }: ShowcaseSectionPro
         {showPortfolioLink && (
           <div className="mt-16 text-center">
             <Link href="/portfolio" className="btn-secondary group">
-              <span>Ver el portfolio completo</span>
+              <span>Ver el portfolio completo de dashboards</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>

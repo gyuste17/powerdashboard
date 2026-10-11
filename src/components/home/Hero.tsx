@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageSquare, Check } from 'lucide-react';
-import { BrowserFrame } from '@/components/ui/BrowserFrame';
+import { DeviceShowcase } from '@/components/ui/DeviceShowcase';
 import { SITE_CONFIG } from '@/data/siteData';
 
 const TRUST_SIGNALS = [
@@ -16,7 +16,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   return (
-    <section className="relative pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden">
+    <section className="relative pt-32 sm:pt-40 pb-20 sm:pb-28 overflow-hidden" id="hero">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* ── Copy ─────────────────────────────────────────── */}
         <motion.div
@@ -27,7 +27,7 @@ export function Hero() {
         >
           <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-amber-700 dark:text-amber-400">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-500" aria-hidden="true" />
-            Consultoría Power BI · Looker Studio
+            Consultoría Senior · Power BI · Looker Studio
           </p>
 
           <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] text-stone-900 dark:text-white text-balance">
@@ -36,8 +36,8 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 text-lg sm:text-xl leading-relaxed text-stone-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Deja atrás los Excel interminables y los informes manuales de cada lunes.
-            Unifico tu ERP, CRM y contabilidad en un único panel que se actualiza solo.
+            Elimina las hojas de Excel interminables y los reportes manuales de los lunes.
+            Centralizo tu ERP, CRM y facturación en paneles visuales que se actualizan solos.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -66,24 +66,18 @@ export function Hero() {
           </ul>
         </motion.div>
 
-        {/* ── Product visual ───────────────────────────────── */}
+        {/* ── Product visual: Laptop + Smartphone Dual Mockup ── */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
           className="relative mt-16 sm:mt-20"
         >
-          <div
-            aria-hidden="true"
-            className="absolute -inset-x-10 -top-10 bottom-10 -z-10 rounded-[3rem] bg-gradient-to-b from-amber-400/20 via-amber-200/10 to-transparent dark:from-amber-500/15 dark:via-indigo-500/5 blur-3xl"
-          />
-          <BrowserFrame
-            src="/images/dashboards/MAT.png"
-            alt="Cuadro de mando comercial en Power BI con facturación, margen y evolución mensual"
-            url="app.powerbi.com/cuadro-de-mando-comercial"
-            aspectRatio="1436 / 802"
-            sizes="(max-width: 1200px) 100vw, 1152px"
-            priority
+          <DeviceShowcase
+            desktopSrc="/images/mockups/laptop-dashboard-macbook.jpg"
+            mobileSrc="/images/mockups/mobile-dashboard-iphone.jpg"
+            desktopAlt="Cuadro de Mando Ejecutivo en MacBook Pro"
+            mobileAlt="Dashboard Ejecutivo en iPhone"
           />
         </motion.div>
       </div>

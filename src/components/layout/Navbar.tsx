@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -20,20 +20,21 @@ import { SITE_CONFIG, SERVICES_DATA } from '@/data/siteData';
 import { ThemeToggle } from '@/components/theme/ThemeToggle';
 
 const serviceIcons: Record<string, typeof BarChart3> = {
-  'power-bi':       BarChart3,
-  'looker-studio':  PieChart,
+  'power-bi': BarChart3,
+  'looker-studio': PieChart,
   'migracion-excel': RefreshCw,
 };
 
 export function Navbar() {
-  const [isOpen, setIsOpen]                   = useState(false);
-  const [scrolled, setScrolled]               = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
-  const pathname                              = usePathname();
-  const dropdownRef                           = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const router = useRouter();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -55,14 +56,33 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: '/',         label: 'Inicio' },
-    { href: '/portfolio', label: 'Dashboards' },
-    { href: '/precios',  label: 'Precios' },
-    { href: '/blog',     label: 'Blog' },
+    { href: '/', label: 'Inicio', sectionId: 'hero' },
+    { href: '/#dashboards', label: 'Dashboards', sectionId: 'dashboards' },
+    { href: '/#precios', label: 'Precios', sectionId: 'precios' },
+    { href: '/blog', label: 'Blog' },
   ];
 
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href);
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+    sectionId?: string
+  ) => {
+    setIsOpen(false);
+    setServicesDropdown(false);
+
+    if (pathname === '/' && sectionId) {
+      if (sectionId === 'hero') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      const el = document.getElementById(sectionId);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   if (pathname?.startsWith('/segundo-orden') || pathname?.startsWith('/politica')) {
     return null;
@@ -83,7 +103,11 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* ── Logo ─────────────────────────────────── */}
-            <Link href="/" className="flex items-center gap-3 group shrink-0">
+            <Link
+              href="/"
+              onClick={(e) => handleNavClick(e, '/', 'hero')}
+              className="flex items-center gap-3 group shrink-0"
+            >
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 className="relative h-9 w-40 sm:h-10 sm:w-48"
@@ -100,24 +124,14 @@ export function Navbar() {
             </Link>
 
             {/* ── Desktop Nav ───────────────────────────── */}
-            <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
+            <nav className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.label}
                   href={link.href}
-                  className={`relative px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                    isActive(link.href)
-                      ? 'text-amber-700 dark:text-amber-400'
-                      : 'text-stone-600 hover:text-stone-950 dark:text-slate-400 dark:hover:text-white'
-                  }`}
+                  onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
+                  className="relative px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-stone-600 hover:text-stone-950 dark:text-slate-400 dark:hover:text-white"
                 >
-                  {isActive(link.href) && (
-                    <motion.span
-                      layoutId="nav-indicator"
-                      className="absolute inset-0 rounded-lg bg-amber-500/10 dark:bg-amber-500/10"
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                    />
-                  )}
                   <span className="relative">{link.label}</span>
                 </Link>
               ))}
@@ -130,8 +144,10 @@ export function Navbar() {
                 onMouseLeave={() => setServicesDropdown(false)}
               >
                 <button
+                  type="button"
+                  onClick={() => setServicesDropdown((prev) => !prev)}
                   className={`relative px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-1 ${
-                    pathname.startsWith('/servicios')
+                    pathname.startsWith('/servicios') || servicesDropdown
                       ? 'text-amber-700 bg-amber-500/10 dark:text-amber-400'
                       : 'text-stone-600 hover:text-stone-950 dark:text-slate-400 dark:hover:text-white'
                   }`}
@@ -152,7 +168,7 @@ export function Navbar() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -8, scale: 0.97 }}
                       transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute top-full left-0 w-[340px] pt-2"
+                      className="absolute top-full left-0 w-[340px] pt-2 z-50"
                     >
                       <div className="bg-white/95 dark:bg-slate-900/95 rounded-2xl p-2 shadow-xl dark:shadow-[0_20px_60px_rgba(0,0,0,0.6)] border border-stone-200/90 dark:border-white/[0.07] backdrop-blur-xl">
                         {SERVICES_DATA.map((service, i) => {
@@ -166,6 +182,7 @@ export function Navbar() {
                             >
                               <Link
                                 href={`/servicios/${service.slug}`}
+                                onClick={() => setServicesDropdown(false)}
                                 className="flex items-start gap-3 p-3 rounded-xl hover:bg-stone-100/70 dark:hover:bg-white/[0.04] transition-colors group/item"
                               >
                                 <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 group-hover/item:bg-amber-500 group-hover/item:text-slate-950 transition-all duration-200 mt-0.5 shrink-0">
@@ -186,6 +203,7 @@ export function Navbar() {
                         <div className="mx-3 my-1 h-px bg-stone-200/80 dark:bg-white/[0.05]" />
                         <Link
                           href="/auditoria-gratuita"
+                          onClick={() => setServicesDropdown(false)}
                           className="flex items-center gap-2 p-3 rounded-xl text-sm font-semibold text-amber-700 dark:text-amber-300 hover:bg-amber-500/10 transition-colors"
                         >
                           <Sparkles className="w-4 h-4 text-amber-500" />
@@ -227,17 +245,30 @@ export function Navbar() {
               <ThemeToggle />
 
               <button
+                type="button"
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-2 rounded-xl text-stone-600 hover:text-stone-900 dark:text-slate-400 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-white/[0.05] transition-colors"
                 aria-label="Menú"
               >
                 <AnimatePresence mode="wait">
                   {isOpen ? (
-                    <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <motion.div
+                      key="close"
+                      initial={{ rotate: -90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: 90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
                       <X className="w-6 h-6" />
                     </motion.div>
                   ) : (
-                    <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <motion.div
+                      key="menu"
+                      initial={{ rotate: 90, opacity: 0 }}
+                      animate={{ rotate: 0, opacity: 1 }}
+                      exit={{ rotate: -90, opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
                       <Menu className="w-6 h-6" />
                     </motion.div>
                   )}
@@ -268,10 +299,14 @@ export function Navbar() {
             >
               {/* Drawer header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-stone-200 dark:border-white/[0.06]">
-                <span className="text-sm font-bold text-amber-700 dark:text-amber-400">Menú</span>
+                <span className="text-sm font-bold text-amber-700 dark:text-amber-400">
+                  Menú de Navegación
+                </span>
                 <button
+                  type="button"
                   onClick={() => setIsOpen(false)}
                   className="p-2 rounded-lg text-stone-600 hover:text-stone-900 dark:text-slate-400 dark:hover:text-white hover:bg-stone-200/50 dark:hover:bg-white/[0.05] transition-colors"
+                  aria-label="Cerrar menú"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -281,18 +316,15 @@ export function Navbar() {
               <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
                 {navLinks.map((link, i) => (
                   <motion.div
-                    key={link.href}
+                    key={link.label}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.06 }}
+                    transition={{ delay: i * 0.05 }}
                   >
                     <Link
                       href={link.href}
-                      className={`block px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
-                        isActive(link.href)
-                          ? 'text-amber-700 bg-amber-500/10 dark:text-amber-400'
-                          : 'text-stone-700 hover:text-stone-950 hover:bg-stone-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04]'
-                      }`}
+                      onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
+                      className="block px-4 py-3 rounded-xl text-base font-semibold text-stone-700 hover:text-stone-950 hover:bg-stone-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/[0.04] transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -303,22 +335,23 @@ export function Navbar() {
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.25 }}
-                  className="pt-2"
+                  transition={{ delay: 0.2 }}
+                  className="pt-3"
                 >
                   <div className="px-4 py-2 text-xs font-bold uppercase tracking-widest text-amber-700 dark:text-amber-500/80">
-                    Servicios
+                    Servicios Especializados
                   </div>
-                  <div className="pl-3 border-l-2 border-amber-500/30 space-y-1 ml-4">
+                  <div className="pl-3 border-l-2 border-amber-500/30 space-y-1 ml-4 mt-1">
                     {SERVICES_DATA.map((service, i) => (
                       <motion.div
                         key={service.id}
                         initial={{ opacity: 0, x: 10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 + i * 0.06 }}
+                        transition={{ delay: 0.25 + i * 0.05 }}
                       >
                         <Link
                           href={`/servicios/${service.slug}`}
+                          onClick={() => setIsOpen(false)}
                           className="block px-3 py-2.5 rounded-xl text-sm font-medium text-stone-700 hover:text-amber-700 hover:bg-amber-50 dark:text-slate-300 dark:hover:text-amber-300 dark:hover:bg-amber-500/5 transition-colors"
                         >
                           {service.title}
@@ -333,12 +366,14 @@ export function Navbar() {
               <div className="px-4 pb-6 pt-3 border-t border-stone-200 dark:border-white/[0.06] space-y-3">
                 <Link
                   href="/auditoria-gratuita"
+                  onClick={() => setIsOpen(false)}
                   className="block text-center px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-300 font-semibold text-sm"
                 >
                   ✨ Auditoría Express Gratuita
                 </Link>
                 <Link
                   href="/contacto"
+                  onClick={() => setIsOpen(false)}
                   className="btn-primary w-full justify-center"
                 >
                   Contactar Ahora
@@ -350,7 +385,7 @@ export function Navbar() {
                   className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border border-emerald-500/30 bg-emerald-500/5 text-emerald-700 dark:text-emerald-300 font-semibold text-sm"
                 >
                   <MessageSquare className="w-4 h-4" />
-                  WhatsApp
+                  WhatsApp Directo
                 </a>
               </div>
             </motion.div>
